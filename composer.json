@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cascade\\": "src/"
+            "Cascade\\": "src"
         }
     },
     "autoload-dev": {
