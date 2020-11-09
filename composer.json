@@ -36,11 +36,5 @@
         "phpunit/phpunit": "^4.8",
         "php-coveralls/php-coveralls": "^1.0",
         "squizlabs/php_codesniffer": "^2.5"
-    },
-    "prefer-stable": true,
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.5.x-dev"
-        }
     }
 }
