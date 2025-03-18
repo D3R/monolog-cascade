@@ -30,7 +30,7 @@ class HandlerLoader extends ClassLoader
     /**
      * Default handler class to use if none is provided in the option array
      */
-    const DEFAULT_CLASS = 'Monolog\Handler\StreamHandler';
+    public const DEFAULT_CLASS = 'Monolog\Handler\StreamHandler';
 
     /**
      * Constructor

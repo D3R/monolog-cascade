@@ -28,7 +28,7 @@ class FormatterLoader extends ClassLoader
     /**
      * Default formatter class to use if none is provided in the option array
      */
-    const DEFAULT_CLASS = 'Monolog\Formatter\LineFormatter';
+    public const DEFAULT_CLASS = 'Monolog\Formatter\LineFormatter';
 
     /**
      * Constructor

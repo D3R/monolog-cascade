@@ -35,7 +35,7 @@ class ClassLoader
     /**
      * Default class to use if none is provided in the option array
      */
-    const DEFAULT_CLASS = '\stdClass';
+    public const DEFAULT_CLASS = '\stdClass';
 
     /**
      * Array of Closures indexed by class.
