@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,10 +9,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Tests\Config\Loader\ClassLoader;
 
 use Monolog\Processor\WebProcessor;
-
 use Cascade\Config\Loader\ClassLoader\ProcessorLoader;
 use PHPUnit\Framework\TestCase;
 

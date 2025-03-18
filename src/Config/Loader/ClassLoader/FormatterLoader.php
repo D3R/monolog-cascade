@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,10 +9,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Config\Loader\ClassLoader;
 
 use Monolog;
-
 use Cascade\Config\Loader\ClassLoader;
 
 /**
@@ -27,7 +28,7 @@ class FormatterLoader extends ClassLoader
     /**
      * Default formatter class to use if none is provided in the option array
      */
-    const DEFAULT_CLASS = 'Monolog\Formatter\LineFormatter';
+    public const DEFAULT_CLASS = 'Monolog\Formatter\LineFormatter';
 
     /**
      * Constructor

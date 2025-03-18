@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,10 +9,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Tests\Config\Loader\ClassLoader;
 
 use Monolog\Formatter\LineFormatter;
-
 use Cascade\Config\Loader\ClassLoader\HandlerLoader;
 use PHPUnit\Framework\TestCase;
 
@@ -241,11 +242,11 @@ class HandlerLoaderTest extends TestCase
     {
         $options = array();
 
-        $mockProcessor1 = function($record) {
+        $mockProcessor1 = function ($record) {
             $record['extra']['dummy'] = 'Hello world 1!';
             return $record;
         };
-        $mockProcessor2 = function($record) {
+        $mockProcessor2 = function ($record) {
             $record['extra']['dummy'] = 'Hello world 1!';
             return $record;
         };

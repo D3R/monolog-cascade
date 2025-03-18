@@ -9,7 +9,6 @@ namespace Cascade;
  */
 class Util
 {
-
     /**
      * Convert a string from snake_case to camelCase.
      *

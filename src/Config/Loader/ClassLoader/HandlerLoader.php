@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,12 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Config\Loader\ClassLoader;
 
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\LogglyHandler;
-
 use Cascade\Config\Loader\ClassLoader;
 
 /**
@@ -29,7 +30,7 @@ class HandlerLoader extends ClassLoader
     /**
      * Default handler class to use if none is provided in the option array
      */
-    const DEFAULT_CLASS = 'Monolog\Handler\StreamHandler';
+    public const DEFAULT_CLASS = 'Monolog\Handler\StreamHandler';
 
     /**
      * Constructor

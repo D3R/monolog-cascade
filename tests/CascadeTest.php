@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,11 +9,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Tests;
 
 use Monolog\Logger;
 use Monolog\Registry;
-
 use Cascade\Cascade;
 use PHPUnit\Framework\TestCase;
 

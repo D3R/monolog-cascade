@@ -1,10 +1,12 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Config\Loader\FileLoader;
 
 /**
@@ -29,7 +31,7 @@ class PhpArray extends FileLoaderAbstract
      *
      * @return array Array containing data from the PHP file
      */
-    public function load($resource, $type = null)
+    public function load(mixed $resource, ?string $type = null): mixed
     {
         $config = include $resource;
 
@@ -52,7 +54,7 @@ class PhpArray extends FileLoaderAbstract
      *
      * @return boolean Whether or not the passed in resource is supported by this loader
      */
-    public function supports($resource, $type = null)
+    public function supports(mixed $resource, ?string $type = null): bool
     {
         return $this->isFile($resource) && $this->validateExtension($resource);
     }
