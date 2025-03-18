@@ -25,25 +25,25 @@ class PhpArray extends Loader
     /**
      * Loads an array
      *
-     * @param  array $array Array to load
+     * @param  array $resource Array to load
      * @param  string|null $type Not used
      *
      * @return array The passed in array
      */
-    public function load($array, $type = null)
+    public function load(mixed $resource, ?string $type = null): mixed
     {
-        return $array;
+        return $resource;
     }
 
     /**
      * Return whether or not the passed in resource is supported by this loader
      *
-     * @param  string $resource Plain string or filepath
+     * @param  mixed $resource Plain string or filepath
      * @param  string|null $type Not used
      *
-     * @return boolean Whether or not the passed in resource is supported by this loader
+     * @return bool Whether or not the passed in resource is supported by this loader
      */
-    public function supports($resource, $type = null)
+    public function supports(mixed $resource, ?string $type = null): bool
     {
         return is_array($resource);
     }
