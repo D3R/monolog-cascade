@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,12 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Tests\Config\Loader\FileLoader;
 
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml as YamlParser;
-
 use Cascade\Tests\Fixtures;
 
 /**
@@ -79,7 +80,7 @@ class YamlTest extends TestCase
             array(123),
             array(123.456),
             array(null),
-            array(new \stdClass),
+            array(new \stdClass()),
             // array(function () {
             // })
             // cannot test Closure type because of PhpUnit

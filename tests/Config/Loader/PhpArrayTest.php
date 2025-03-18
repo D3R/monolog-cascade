@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Tests\Config\Loader;
 
 use Cascade\Config\Loader\PhpArray as ArrayLoader;
@@ -62,7 +64,7 @@ class PhpArrayTest extends TestCase
             array(123),
             array(123.456),
             array(null),
-            array(new \stdClass),
+            array(new \stdClass()),
             array(function () {
             })
         );

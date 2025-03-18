@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Tests;
 
 class Fixtures
@@ -19,7 +21,7 @@ class Fixtures
      */
     public static function fixtureDir()
     {
-        return realpath(__DIR__.'/Fixtures');
+        return realpath(__DIR__ . '/Fixtures');
     }
 
     /**
@@ -39,7 +41,7 @@ class Fixtures
      */
     public static function getYamlConfigFile()
     {
-        return self::fixtureDir().'/fixture_config.yml';
+        return self::fixtureDir() . '/fixture_config.yml';
     }
 
     /**
@@ -49,7 +51,7 @@ class Fixtures
      */
     public static function getYamlConfig()
     {
-        return file_get_contents(self::fixtureDir().'/fixture_config.yml');
+        return file_get_contents(self::fixtureDir() . '/fixture_config.yml');
     }
 
     /**
@@ -59,7 +61,7 @@ class Fixtures
      */
     public static function getSampleYamlFile()
     {
-        return self::fixtureDir().'/fixture_sample.yml';
+        return self::fixtureDir() . '/fixture_sample.yml';
     }
 
     /**
@@ -70,9 +72,9 @@ class Fixtures
     public static function getSampleYamlString()
     {
         return trim(
-            '---'."\n".
-            'greeting: "hello"'."\n".
-            'to: "you"'."\n"
+            '---' . "\n" .
+            'greeting: "hello"' . "\n" .
+            'to: "you"' . "\n"
         );
     }
 
@@ -83,7 +85,7 @@ class Fixtures
      */
     public static function getJsonConfigFile()
     {
-        return self::fixtureDir().'/fixture_config.json';
+        return self::fixtureDir() . '/fixture_config.json';
     }
 
     /**
@@ -93,7 +95,7 @@ class Fixtures
      */
     public static function getJsonConfig()
     {
-        return file_get_contents(self::fixtureDir().'/fixture_config.json');
+        return file_get_contents(self::fixtureDir() . '/fixture_config.json');
     }
 
     /**
@@ -103,7 +105,7 @@ class Fixtures
      */
     public static function getSampleJsonFile()
     {
-        return self::fixtureDir().'/fixture_sample.json';
+        return self::fixtureDir() . '/fixture_sample.json';
     }
 
     /**
@@ -114,10 +116,10 @@ class Fixtures
     public static function getSampleJsonString()
     {
         return trim(
-            '{'."\n".
-            '    "greeting": "hello",'."\n".
-            '    "to": "you"'."\n".
-            '}'."\n"
+            '{' . "\n" .
+            '    "greeting": "hello",' . "\n" .
+            '    "to": "you"' . "\n" .
+            '}' . "\n"
         );
     }
 
@@ -138,7 +140,7 @@ class Fixtures
      */
     public static function getPhpArrayConfigFile()
     {
-        return self::fixtureDir().'/fixture_config.php';
+        return self::fixtureDir() . '/fixture_config.php';
     }
 
     /**
@@ -148,7 +150,7 @@ class Fixtures
      */
     public static function getPhpArrayConfig()
     {
-        return require self::fixtureDir().'/fixture_config.php';
+        return require self::fixtureDir() . '/fixture_config.php';
     }
 
     /**
