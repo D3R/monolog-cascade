@@ -40,12 +40,11 @@ class FileLoaderAbstractTest extends TestCase
 
         $this->mock = $this->getMockForAbstractClass(
             'Cascade\Config\Loader\FileLoader\FileLoaderAbstract',
-            array($fileLocatorMock),
-            'FileLoaderAbstractMockClass' // mock class name
+            array($fileLocatorMock)
         );
 
         // Setting valid extensions for tests
-        \FileLoaderAbstractMockClass::$validExtensions = array('test', 'php');
+        $this->mock::$validExtensions = array('test', 'php');
     }
 
     public function tearDown(): void
@@ -81,7 +80,7 @@ class FileLoaderAbstractTest extends TestCase
      *
      * @return array array with original value, section and expected value
      */
-    public function extensionsDataProvider()
+    public static function extensionsDataProvider()
     {
         return array(
             array(true, 'hello/world.test'),
@@ -113,7 +112,7 @@ class FileLoaderAbstractTest extends TestCase
      *
      * @return array array wit original value, section and expected value
      */
-    public function arrayDataProvider()
+    public static function arrayDataProvider()
     {
         return array(
             array(

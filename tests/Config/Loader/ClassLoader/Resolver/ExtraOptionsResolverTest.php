@@ -35,6 +35,9 @@ class ExtraOptionsResolverTest extends TestCase
      */
     protected $resolver = null;
 
+    protected $class;
+    protected $params;
+
     /**
      * Set up function
      */
@@ -104,7 +107,7 @@ class ExtraOptionsResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public function optionsProvider()
+    public static function optionsProvider()
     {
         return array(
             array(
@@ -148,7 +151,7 @@ class ExtraOptionsResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public function invalidOptionsProvider()
+    public static function invalidOptionsProvider()
     {
         return array(
             array(

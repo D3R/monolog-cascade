@@ -38,7 +38,7 @@ class JsonTest extends TestCase
             'Cascade\Config\Loader\FileLoader\Json'
         )
             ->setConstructorArgs(array($fileLocatorMock))
-            ->setMethods(array('readFrom', 'isFile', 'validateExtension'))
+            ->onlyMethods(array('readFrom', 'isFile', 'validateExtension'))
             ->getMock();
     }
 
@@ -70,7 +70,7 @@ class JsonTest extends TestCase
      *
      * @return array array non-string values
      */
-    public function notStringDataProvider()
+    public static function notStringDataProvider()
     {
         return array(
             array(array()),
