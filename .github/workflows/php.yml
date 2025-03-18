@@ -36,37 +36,59 @@ jobs:
     # Docs: https://getcomposer.org/doc/articles/scripts.md
     - name: PHPUnit (php-actions)
       # You may pin to the exact commit or the version.
-      # uses: php-actions/phpunit@1789d1964b1bfda259b1cb42a72b65299c2cae35
-      uses: php-actions/phpunit@v4
+      uses: php-actions/phpunit@1789d1964b1bfda259b1cb42a72b65299c2cae35
+      # uses: php-actions/phpunit@v4
       with:
-        # What version of PHPUnit to use
-        # version: # optional, default is composer
         # What version of PHP to use
         php_version: '8.3'
-        # Space separated list of extensions to configure with the PHP build
-        # php_extensions: # optional
-        # Path to a vendored phpunit/ binary
-        # vendored_phpunit_path: # optional
-        # Configuration file location
-        # configuration: # optional
-        # Memory limit
-        # memory_limit: # optional
-        # Path to bootstrap file
-        # bootstrap: # optional
-        # Filter which tests to run
-        # filter: # optional
-        # Specify a testsuite to run
-        # testsuite: # optional
-        # Only runs tests from the specified group(s)
-        # group: # optional
-        # Exclude tests from the specified group(s)
-        # exclude_group: # optional
-        # Only search for test in files with specified suffix(es)
-        # test_suffix: # optional
-        # Path to directory to whitelist for code coverage analysis
-        # whitelist: # optional
-        # Extra arguments to pass to the phpunit binary
-        # args: # optional
+        
+      - name: PHP Code Sniffer (php-actions)
+        # You may pin to the exact commit or the version.
+        uses: php-actions/phpcs@0a99a2845164005c597c165cd45dc594d8fe6c1d
+        # uses: php-actions/phpcs@v1
+        with:
+          # What version of PHP to use
+          php_version: '8.3
+          # Path to a vendored phpcs binary
+          vendored_phpcs_path: # optional
+          # One or more files and/or directories to check
+          path: ['src', 'tests']
+          # The name or path of the coding standard to use
+          standard: 'PSR12'
+          # # A comma separated list of sniff codes to include checking (all sniffs must be part of the specified standard)
+          # sniffs: # optional
+          # # A comma separated list of sniff codes to exclude from checking (all sniffs must be part of the specified standard)
+          # exclude: # optional
+          # # A comma separated list of patterns to ignore files and directories
+          # ignore: # optional
+          # # The number of spaces each tab represents
+          # tab_width: # optional
+          # # Print either the "full", "xml", "checkstyle", "csv", "json", "junit", "emacs", "source", "summary", "diff", "svnblame", "gitblame", "hgblame" or "notifysend" report, or specify the path to a custom report class, (the "full" report is printed by default)
+          # report: # default is full
+          # # Write the report to the specified file path
+          # report_file: # optional
+          # # How many columns wide screen reports should be printed or set to "auto" to use current screen width, where supported
+          # report_width: # optional
+          # # A path to strip from the front of file paths inside reports
+          # basepath: # optional
+          # # A comma separated list of files to run before processing begins
+          # bootstrap: # optional
+          # # The encoding of the files being checked (default is utf-8)
+          # encoding: # optional
+          # # A comma separated list of file extensions to check. The type of the file can be specified using: ext/type e.g., module/php,es/js
+          # extensions: # optional
+          # # The minimum severity required to display an error or warning
+          # severity: # optional
+          # # The minimum severity required to display an error
+          # error_severity: # optional
+          # # The minimum severity required to display a warning
+          # warning_severity: # optional
+          # # Exit with a zero error code despite the presence of warnings
+          # ignore_warnings_on_exit: # optional
+          # # Exit with a zero error code despite the presence of errors
+          # ignore_errors_on_exit: # optional
+          # # Extra arguments to pass to the phpcs binary
+          # args: # optional
           
 
     # - name: Run test suite
