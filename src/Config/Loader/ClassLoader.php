@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Monolog Cascade package.
  *
@@ -104,7 +105,8 @@ class ClassLoader
     protected function loadChildClasses()
     {
         foreach ($this->rawOptions as &$option) {
-            if (is_array($option)
+            if (
+                is_array($option)
                 && array_key_exists('class', $option)
                 && class_exists($option['class'])
             ) {
@@ -241,7 +243,8 @@ class ClassLoader
                 );
                 continue;
             }
-            if ($this->reflected->hasProperty($name) &&
+            if (
+                $this->reflected->hasProperty($name) &&
                 $this->reflected->getProperty($name)->isPublic()
             ) {
                 // There is a public member we can set for this option

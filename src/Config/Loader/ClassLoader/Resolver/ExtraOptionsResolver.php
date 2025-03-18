@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,10 +9,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Config\Loader\ClassLoader\Resolver;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Cascade\Config\Loader\ClassLoader;
 
 /**
@@ -110,7 +111,8 @@ class ExtraOptionsResolver
                 $resolver->setDefined($name);
                 continue;
             }
-            if ($this->reflected->hasProperty($name) &&
+            if (
+                $this->reflected->hasProperty($name) &&
                 $this->reflected->getProperty($name)->isPublic()
             ) {
                 // There is a public member we can set to handle this option

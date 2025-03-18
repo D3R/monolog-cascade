@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,12 +9,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Config;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderResolver;
-
 use Cascade\Config\Loader\FileLoader\Json as JsonLoader;
 use Cascade\Config\Loader\FileLoader\PhpArray as ArrayFromFileLoader;
 use Cascade\Config\Loader\FileLoader\Yaml as YamlLoader;
