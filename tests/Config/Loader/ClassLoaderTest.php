@@ -44,7 +44,7 @@ class ClassLoaderTest extends TestCase
      * Provides options with and without a class param
      * @return array of args
      */
-    public function dataFortestSetClass()
+    public static function dataFortestSetClass()
     {
         return array(
             array(

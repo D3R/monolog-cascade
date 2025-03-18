@@ -37,6 +37,8 @@ class ConstructorResolverTest extends TestCase
      */
     protected $resolver = null;
 
+    protected $class;
+
     /**
      * Set up function
      */
@@ -117,7 +119,7 @@ class ConstructorResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public function optionsProvider()
+    public static function optionsProvider()
     {
         return array(
             array(
@@ -164,7 +166,7 @@ class ConstructorResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public function missingOptionsProvider()
+    public static function missingOptionsProvider()
     {
         return array(
             array(
@@ -202,7 +204,7 @@ class ConstructorResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public function invalidOptionsProvider()
+    public static function invalidOptionsProvider()
     {
         return array(
             array(

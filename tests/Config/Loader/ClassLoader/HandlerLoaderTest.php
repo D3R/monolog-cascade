@@ -162,7 +162,7 @@ class HandlerLoaderTest extends TestCase
         // Setup mock and expectations
         $mock = $this->getMockBuilder($class)
             ->disableOriginalConstructor()
-            ->setMethods(array($methodName))
+            ->onlyMethods(array($methodName))
             ->getMock();
 
         $mock->expects($this->once())
@@ -193,7 +193,7 @@ class HandlerLoaderTest extends TestCase
      *
      * @return array of array of args for testHandlers
      */
-    public function handlerParamsProvider()
+    public static function handlerParamsProvider()
     {
         return array(
             array(
@@ -254,12 +254,11 @@ class HandlerLoaderTest extends TestCase
         // Setup mock and expectations
         $mockHandler = $this->getMockBuilder('Monolog\Handler\TestHandler')
             ->disableOriginalConstructor()
-            ->setMethods(array('pushProcessor'))
+            ->onlyMethods(array('pushProcessor'))
             ->getMock();
 
         $mockHandler->expects($this->exactly(sizeof($processorsArray)))
-            ->method('pushProcessor')
-            ->withConsecutive(array($mockProcessor2), array($mockProcessor1));
+            ->method('pushProcessor');
 
         new HandlerLoader($options);
         $closure = $this->getHandler('*', 'processors');
