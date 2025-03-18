@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Tests\Config\Loader\FileLoader;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -15,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\FileLocatorInterface;
 use org\bovigo\vfs\vfsStream;
-
 use Cascade\Tests\Fixtures;
 
 /**
@@ -162,7 +163,7 @@ class FileLoaderAbstractTest extends TestCase
         // Adding an unreadable file (chmod 0000)
         vfsStream::newFile('config.yml', 0000)
             ->withContent(
-                "---\n".
+                "---\n" .
                 "hidden_config: true"
             )->at($root);
 

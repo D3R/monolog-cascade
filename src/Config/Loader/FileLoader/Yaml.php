@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Config\Loader\FileLoader;
 
 use Symfony\Component\Yaml\Yaml as YamlParser;
@@ -37,7 +39,7 @@ class Yaml extends FileLoaderAbstract
      *
      * @return array Array containing data from the parse Yaml string or file
      */
-    public function load($resource, $type = null)
+    public function load(mixed $resource, ?string $type = null): mixed
     {
         return YamlParser::parse($this->readFrom($resource));
     }
@@ -46,12 +48,12 @@ class Yaml extends FileLoaderAbstract
      * Return whether or not the resource passed in is supported by this loader
      * /!\ This does not validate Yaml content. The parser will raise an exception in that case
      *
-     * @param  string $resource Plain string or filepath
-     * @param  string $type Not used
+     * @param  mixed $resource Plain string or filepath
+     * @param  string|null $type Not used
      *
      * @return boolean Whether or not the passed in resrouce is supported by this loader
      */
-    public function supports($resource, $type = null)
+    public function supports(mixed $resource, ?string $type = null): bool
     {
         if (!is_string($resource)) {
             return false;

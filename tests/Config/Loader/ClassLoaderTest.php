@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -8,6 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Cascade\Tests\Config\Loader;
 
 use Cascade\Config\Loader\ClassLoader;
@@ -97,7 +99,7 @@ class ClassLoaderTest extends TestCase
             ),
             'Cascade\Tests\Fixtures\SampleClass' => array(
                 'there' => function ($instance, $value) {
-                    $instance->setThere(strtoupper($value).'!!!');
+                    $instance->setThere(strtoupper($value) . '!!!');
                 }
             )
         );
@@ -129,7 +131,7 @@ class ClassLoaderTest extends TestCase
             ),
             'Cascade\Tests\Fixtures\SampleClass' => array(
                 'there' => function ($instance, $value) {
-                    $instance->setThere(strtoupper($value).'!!!');
+                    $instance->setThere(strtoupper($value) . '!!!');
                 }
             )
         );
