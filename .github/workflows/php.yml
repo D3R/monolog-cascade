@@ -15,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
-      uses: actions/cache@v3
+      uses: actions/cache@2f8e54208210a422b2efd51efaa6bd6d7ca8920f
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -56,41 +56,3 @@ jobs:
         path: "src"
         # The name or path of the coding standard to use
         standard: "PSR12"
-        # # A comma separated list of sniff codes to include checking (all sniffs must be part of the specified standard)
-        # sniffs: # optional
-        # # A comma separated list of sniff codes to exclude from checking (all sniffs must be part of the specified standard)
-        # exclude: # optional
-        # # A comma separated list of patterns to ignore files and directories
-        # ignore: # optional
-        # # The number of spaces each tab represents
-        # tab_width: # optional
-        # # Print either the "full", "xml", "checkstyle", "csv", "json", "junit", "emacs", "source", "summary", "diff", "svnblame", "gitblame", "hgblame" or "notifysend" report, or specify the path to a custom report class, (the "full" report is printed by default)
-        # report: # default is full
-        # # Write the report to the specified file path
-        # report_file: # optional
-        # # How many columns wide screen reports should be printed or set to "auto" to use current screen width, where supported
-        # report_width: # optional
-        # # A path to strip from the front of file paths inside reports
-        # basepath: # optional
-        # # A comma separated list of files to run before processing begins
-        # bootstrap: # optional
-        # # The encoding of the files being checked (default is utf-8)
-        # encoding: # optional
-        # # A comma separated list of file extensions to check. The type of the file can be specified using: ext/type e.g., module/php,es/js
-        # extensions: # optional
-        # # The minimum severity required to display an error or warning
-        # severity: # optional
-        # # The minimum severity required to display an error
-        # error_severity: # optional
-        # # The minimum severity required to display a warning
-        # warning_severity: # optional
-        # # Exit with a zero error code despite the presence of warnings
-        # ignore_warnings_on_exit: # optional
-        # # Exit with a zero error code despite the presence of errors
-        # ignore_errors_on_exit: # optional
-        # # Extra arguments to pass to the phpcs binary
-        # args: # optional
-        
-
-    # - name: Run test suite
-    #   run: composer run-script test
