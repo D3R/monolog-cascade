@@ -34,6 +34,7 @@ jobs:
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
+    
     - name: PHPUnit (php-actions)
       # You may pin to the exact commit or the version.
       uses: php-actions/phpunit@1789d1964b1bfda259b1cb42a72b65299c2cae35
@@ -52,7 +53,7 @@ jobs:
         # Path to a vendored phpcs binary
         # vendored_phpcs_path: # optional
         # One or more files and/or directories to check
-        path: "src,tests"
+        path: "src tests"
         # The name or path of the coding standard to use
         standard: "PSR12"
         # # A comma separated list of sniff codes to include checking (all sniffs must be part of the specified standard)
