@@ -40,7 +40,7 @@ class YamlTest extends TestCase
             'Cascade\Config\Loader\FileLoader\Yaml'
         )
             ->setConstructorArgs(array($fileLocatorMock))
-            ->setMethods(array('readFrom', 'isFile', 'validateExtension'))
+            ->onlyMethods(array('readFrom', 'isFile', 'validateExtension'))
             ->getMock();
     }
 
@@ -71,7 +71,7 @@ class YamlTest extends TestCase
      * Data provider for testSupportsWithInvalidResource
      * @return array array non-string values
      */
-    public function notStringDataProvider()
+    public static function notStringDataProvider()
     {
         return array(
             array(array()),
