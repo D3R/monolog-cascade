@@ -12,7 +12,7 @@ It's been inspired by the [`logging.config`](https://docs.python.org/3.4/library
 Installation
 ------------
 
-Add `monolog-cascade` as a requirement in your `composer.json` file or run
+Add `d3r/monolog-cascade` as a requirement in your `composer.json` file or run
 ```sh
 $ composer require d3r/monolog-cascade
 ```
