@@ -1,6 +1,3 @@
-Monolog Cascade [![Build Status](https://travis-ci.org/theorchard/monolog-cascade.svg?branch=master)](https://travis-ci.org/theorchard/monolog-cascade) [![Coverage Status](https://coveralls.io/repos/theorchard/monolog-cascade/badge.svg?branch=master)](https://coveralls.io/r/theorchard/monolog-cascade?branch=master)
-===============
-
 What is Monolog Cascade?
 ------------------------
 
@@ -17,10 +14,10 @@ Installation
 
 Add `monolog-cascade` as a requirement in your `composer.json` file or run
 ```sh
-$ composer require theorchard/monolog-cascade
+$ composer require d3r/monolog-cascade
 ```
 
-Note: Monolog Cascade requires PHP 5.3.9 or higher.
+Note: Monolog Cascade requires PHP 8.0 or higher.
 
 Usage
 -----
@@ -163,7 +160,7 @@ If some parameters are not present in the constructor, they will be treated as e
 
 - **_loggers_** - the derived array (from the Yaml or JSON) in which each key is the logger identifier may contain only a `handlers` key and/or a `processors` key. You can decide what handler(s) and/or processor(s) you would like your logger to use.
 
-**Note**: If you would like to use objects as parameters for your handlers, you can pass a class name (using the `class` option) with the corresponding arguments just like you would configure your handler. Cascade recursively instantiates and loads those objects as it parses the config file. See [this sample config file](https://github.com/theorchard/monolog-cascade/blob/master/examples/dependency_config.yml).
+**Note**: If you would like to use objects as parameters for your handlers, you can pass a class name (using the `class` option) with the corresponding arguments just like you would configure your handler. Cascade recursively instantiates and loads those objects as it parses the config file. See [this sample config file](https://github.com/d3r/monolog-cascade/blob/master/examples/dependency_config.yml).
 
 #### Parameter case
 You can use either _underscored_ or _camelCased_ style in your config files, it does not matter. However, it is important that they match the names of the arguments from the constructor method.
