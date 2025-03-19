@@ -233,7 +233,7 @@ Running Tests
 
 Just run Phpunit:
 ```sh
-$ phpunit tests/
+$ vendor/bin/phpunit/
 ```
 
 Contributing
@@ -241,7 +241,7 @@ Contributing
 
 This extension is open source. Feel free to contribute and send a pull request!
 
-Make sure your code follows the [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) standards, is documented and has unit tests.
+Make sure your code follows the [PSR-12](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-extended-coding-style-guide.md) standards, is documented and has unit tests.
 
 
 What's next?
