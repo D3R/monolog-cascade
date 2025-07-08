@@ -34,7 +34,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Cascade\\Tests\\": "tests"
+            "Cascade\\Tests\\": "tests/"
         }
     },
     "require-dev": {
