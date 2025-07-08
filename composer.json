@@ -39,9 +39,6 @@
     },
     "require-dev": {
         "mikey179/vfsstream": "^1.6",
-        "phpunit/phpcov": "^6.0",
-        "phpunit/phpunit": "^8.5",
-        "php-coveralls/php-coveralls": "^1.0",
-        "squizlabs/php_codesniffer": "^2.5"
+        "phpunit/phpunit": "^8.5"
     }
 }
