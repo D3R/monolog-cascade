@@ -1,5 +1,5 @@
 {
-    "name": "d3r/monolog-cascade",
+    "name": "theorchard/monolog-cascade",
     "license": "MIT",
     "type": "library",
     "description": "Monolog extension to configure multiple loggers in the blink of an eye and access them from anywhere",
