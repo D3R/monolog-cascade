@@ -31,7 +31,7 @@
     },
     "replace": { 
         "theorchard/monolog-cascade": "self.version" 
-    } 
+    },
     "autoload-dev": {
         "psr-4": {
             "Cascade\\Tests\\": "tests/"
