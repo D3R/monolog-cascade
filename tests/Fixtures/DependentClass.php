@@ -21,12 +21,6 @@ namespace Cascade\Tests\Fixtures;
 class DependentClass
 {
     /**
-     * An object dependency
-     * @var SampleClass
-     */
-    private $dependency;
-
-    /**
      * Constructor
      *
      * @param SampleClass $dependency Some sample object
@@ -43,6 +37,5 @@ class DependentClass
      */
     public function setDependency(SampleClass $dependency)
     {
-        $this->dependency = $dependency;
     }
 }

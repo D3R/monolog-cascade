@@ -21,7 +21,7 @@ use Symfony\Component\Config\Loader\FileLoader;
  */
 abstract class FileLoaderAbstract extends FileLoader
 {
-    public static $validExtensions = array();
+    public static $validExtensions = [];
 
     /**
      * Read from a file or string
@@ -57,7 +57,7 @@ abstract class FileLoaderAbstract extends FileLoader
      */
     public function isFile($resource)
     {
-        return (strpos($resource, "\n") === false) && is_file($resource);
+        return (!str_contains($resource, "\n")) && is_file($resource);
     }
 
     /**
@@ -80,7 +80,7 @@ abstract class FileLoaderAbstract extends FileLoader
      *
      * @return array|mixed Return the section of an array or just a value
      */
-    public function getSectionOf($array, $section = '')
+    public function getSectionOf(array $array, $section = '')
     {
         if (!empty($section) && array_key_exists($section, $array)) {
             return $array[$section];

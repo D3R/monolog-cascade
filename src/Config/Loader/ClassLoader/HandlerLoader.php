@@ -44,9 +44,9 @@ class HandlerLoader extends ClassLoader
      */
     public function __construct(
         array &$handlerOptions,
-        array $formatters = array(),
-        array $processors = array(),
-        array $handlers = array()
+        array $formatters = [],
+        array $processors = [],
+        array $handlers = []
     ) {
         $this->populateFormatters($handlerOptions, $formatters);
         $this->populateProcessors($handlerOptions, $processors);
@@ -68,7 +68,7 @@ class HandlerLoader extends ClassLoader
      * @param  array &$handlerOptions Handler options
      * @param  FormatterInterface[] $formatters Array of formatter to pick from
      */
-    private function populateFormatters(array &$handlerOptions, array $formatters)
+    private function populateFormatters(array &$handlerOptions, array $formatters): void
     {
         if (isset($handlerOptions['formatter'])) {
             if (isset($formatters[$handlerOptions['formatter']])) {
@@ -93,9 +93,9 @@ class HandlerLoader extends ClassLoader
      * @param  array &$handlerOptions Handler options
      * @param  callable[] $processors Array of processors to pick from
      */
-    private function populateProcessors(array &$handlerOptions, array $processors)
+    private function populateProcessors(array &$handlerOptions, array $processors): void
     {
-        $processorArray = array();
+        $processorArray = [];
 
         if (isset($handlerOptions['processors'])) {
             foreach ($handlerOptions['processors'] as $processorId) {
@@ -124,9 +124,9 @@ class HandlerLoader extends ClassLoader
      * @param  array &$handlerOptions Handler options
      * @param  callable[] $handlers Array of handlers to pick from
      */
-    private function populateHandlers(array &$handlerOptions, array $handlers)
+    private function populateHandlers(array &$handlerOptions, array $handlers): void
     {
-        $handlerArray = array();
+        $handlerArray = [];
 
         if (isset($handlerOptions['handlers'])) {
             foreach ($handlerOptions['handlers'] as $handlerId) {
@@ -175,25 +175,25 @@ class HandlerLoader extends ClassLoader
      * You can use the '*' wildcard if you want to set up an option for all
      * Handler classes
      */
-    public static function initExtraOptionsHandlers()
+    public static function initExtraOptionsHandlers(): void
     {
-        self::$extraOptionHandlers = array(
-            '*' => array(
-                'formatter' => function (HandlerInterface $instance, FormatterInterface $formatter) {
+        self::$extraOptionHandlers = [
+            '*' => [
+                'formatter' => function (HandlerInterface $instance, FormatterInterface $formatter): void {
                     $instance->setFormatter($formatter);
                 },
-                'processors' => function (HandlerInterface $instance, array $processors) {
+                'processors' => function (HandlerInterface $instance, array $processors): void {
                     // We need to reverse the array because Monolog "pushes" processors to top of the stack
                     foreach (array_reverse($processors) as $processor) {
                         $instance->pushProcessor($processor);
                     }
                 }
-            ),
-            'Monolog\Handler\LogglyHandler' => array(
-                'tags' => function (LogglyHandler $instance, $tags) {
+            ],
+            \Monolog\Handler\LogglyHandler::class => [
+                'tags' => function (LogglyHandler $instance, $tags): void {
                     $instance->setTag($tags);
                 }
-            )
-        );
+            ]
+        ];
     }
 }

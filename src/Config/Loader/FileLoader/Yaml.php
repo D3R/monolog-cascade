@@ -26,10 +26,10 @@ class Yaml extends FileLoaderAbstract
      * Valid file extensions for this loader
      * @var array
      */
-    public static $validExtensions = array(
+    public static $validExtensions = [
         'yaml', // official extension
         'yml'   // but everybody uses that one
-    );
+    ];
 
     /**
      * Load a Yaml string/file

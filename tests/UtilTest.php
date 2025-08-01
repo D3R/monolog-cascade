@@ -12,11 +12,11 @@ use PHPUnit\Framework\TestCase;
  */
 class UtilTest extends TestCase
 {
-    public function testSnakeToCamelCase()
+    public function testSnakeToCamelCase(): void
     {
         // non-strings
         $this->assertSame(null, Util::snakeToCamelCase(null));
-        $this->assertSame(null, Util::snakeToCamelCase(array()));
+        $this->assertSame(null, Util::snakeToCamelCase([]));
         $this->assertSame(null, Util::snakeToCamelCase(1));
 
         // strings

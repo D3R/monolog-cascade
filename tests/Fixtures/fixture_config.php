@@ -10,61 +10,61 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'version' => 1,
 
-    'formatters' => array(
-        'spaced' => array(
+    'formatters' => [
+        'spaced' => [
             'format' => "%datetime% %channel%.%level_name%  %message%\n",
             'include_stacktraces' => true
-        ),
-        'dashed' => array(
+        ],
+        'dashed' => [
             'format' => "%datetime%-%channel%.%level_name% - %message%\n"
-        ),
-    ),
-    'handlers' => array(
-        'console' => array(
-            'class' => 'Monolog\Handler\StreamHandler',
+        ],
+    ],
+    'handlers' => [
+        'console' => [
+            'class' => \Monolog\Handler\StreamHandler::class,
             'level' => 'DEBUG',
             'formatter' => 'spaced',
             'stream' => 'php://stdout'
-        ),
+        ],
 
-        'info_file_handler' => array(
-            'class' => 'Monolog\Handler\StreamHandler',
+        'info_file_handler' => [
+            'class' => \Monolog\Handler\StreamHandler::class,
             'level' => 'INFO',
             'formatter' => 'dashed',
             'stream' => './demo_info.log'
-        ),
+        ],
 
-        'error_file_handler' => array(
-            'class' => 'Monolog\Handler\StreamHandler',
+        'error_file_handler' => [
+            'class' => \Monolog\Handler\StreamHandler::class,
             'level' => 'ERROR',
             'stream' => './demo_error.log',
             'formatter' => 'spaced'
-        ),
+        ],
 
-        'group_handler' => array(
-            'class' => 'Monolog\Handler\GroupHandler',
-            'handlers' => array(
+        'group_handler' => [
+            'class' => \Monolog\Handler\GroupHandler::class,
+            'handlers' => [
                 'console',
                 'info_file_handler',
-            ),
-        ),
+            ],
+        ],
 
-        'fingers_crossed_handler' => array(
-            'class' => 'Monolog\Handler\FingersCrossedHandler',
+        'fingers_crossed_handler' => [
+            'class' => \Monolog\Handler\FingersCrossedHandler::class,
             'handler' => 'group_handler',
-        ),
-    ),
-    'processors' => array(
-        'tag_processor' => array(
-            'class' => 'Monolog\Processor\TagProcessor'
-        )
-    ),
-    'loggers' => array(
-        'my_logger' => array(
-            'handlers' => array('console', 'info_file_handler')
-        )
-    )
-);
+        ],
+    ],
+    'processors' => [
+        'tag_processor' => [
+            'class' => \Monolog\Processor\TagProcessor::class
+        ]
+    ],
+    'loggers' => [
+        'my_logger' => [
+            'handlers' => ['console', 'info_file_handler']
+        ]
+    ]
+];

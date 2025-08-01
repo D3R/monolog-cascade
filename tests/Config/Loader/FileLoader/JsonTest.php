@@ -25,26 +25,25 @@ class JsonTest extends TestCase
 {
     /**
      * JSON loader mock builder
-     * @var MockBuilder
      */
-    protected $jsonLoader = null;
+    protected ?\PHPUnit\Framework\MockObject\MockObject $jsonLoader = null;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $fileLocatorMock = $this->getMockBuilder('Symfony\Component\Config\FileLocatorInterface')
+        $fileLocatorMock = $this->getMockBuilder(\Symfony\Component\Config\FileLocatorInterface::class)
                                 ->getMock();
 
         $this->jsonLoader = $this->getMockBuilder(
-            'Cascade\Config\Loader\FileLoader\Json'
+            \Cascade\Config\Loader\FileLoader\Json::class
         )
-            ->setConstructorArgs(array($fileLocatorMock))
-            ->onlyMethods(array('readFrom', 'isFile', 'validateExtension'))
+            ->setConstructorArgs([$fileLocatorMock])
+            ->onlyMethods(['readFrom', 'isFile', 'validateExtension'])
             ->getMock();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->jsonLoader = null;
         parent::tearDown();
@@ -53,7 +52,7 @@ class JsonTest extends TestCase
     /**
      * Test loading a JSON string
      */
-    public function testLoad()
+    public function testLoad(): void
     {
         $json = Fixtures::getSampleJsonString();
 
@@ -72,18 +71,18 @@ class JsonTest extends TestCase
      *
      * @return array array non-string values
      */
-    public static function notStringDataProvider()
+    public static function notStringDataProvider(): array
     {
-        return array(
-            array(array()),
-            array(true),
-            array(123),
-            array(123.456),
-            array(null),
-            array(new \stdClass()),
-            array(function () {
-            })
-        );
+        return [
+            [[]],
+            [true],
+            [123],
+            [123.456],
+            [null],
+            [new \stdClass()],
+            [function (): void {
+            }]
+        ];
     }
 
     /**
@@ -92,7 +91,7 @@ class JsonTest extends TestCase
      * @param mixed $invalidResource Invalid resource value
      * @dataProvider notStringDataProvider
      */
-    public function testSupportsWithInvalidResource($invalidResource)
+    public function testSupportsWithInvalidResource(bool|int|float|\stdClass|\Closure|array|null $invalidResource): void
     {
         $this->assertFalse($this->jsonLoader->supports($invalidResource));
     }
@@ -100,7 +99,7 @@ class JsonTest extends TestCase
     /**
      * Test loading a JSON string
      */
-    public function testSupportsWithJsonString()
+    public function testSupportsWithJsonString(): void
     {
         $this->jsonLoader->expects($this->once())
             ->method('isFile')
@@ -115,7 +114,7 @@ class JsonTest extends TestCase
      * Test loading a JSON file
      * Note that this function tests isJson with a valid Json string
      */
-    public function testSupportsWithJsonFile()
+    public function testSupportsWithJsonFile(): void
     {
         $this->jsonLoader->expects($this->once())
             ->method('isFile')
@@ -134,7 +133,7 @@ class JsonTest extends TestCase
      * Test isJson method with invalid JSON string.
      * Valid scenario is tested by the method above
      */
-    public function testSupportsWithNonJsonString()
+    public function testSupportsWithNonJsonString(): void
     {
         $this->jsonLoader->expects($this->once())
             ->method('isFile')

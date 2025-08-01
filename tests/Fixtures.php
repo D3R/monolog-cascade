@@ -29,7 +29,7 @@ class Fixtures
      *
      * @return string Wrong file path
      */
-    public static function getInvalidFile()
+    public static function getInvalidFile(): string
     {
         return 'some/non/existing/file.txt';
     }
@@ -39,7 +39,7 @@ class Fixtures
      *
      * @return string Path to yaml config file
      */
-    public static function getYamlConfigFile()
+    public static function getYamlConfigFile(): string
     {
         return self::fixtureDir() . '/fixture_config.yml';
     }
@@ -49,7 +49,7 @@ class Fixtures
      *
      * @return string Yaml config
      */
-    public static function getYamlConfig()
+    public static function getYamlConfig(): string|false
     {
         return file_get_contents(self::fixtureDir() . '/fixture_config.yml');
     }
@@ -59,7 +59,7 @@ class Fixtures
      *
      * @return string Path to a sample yaml file
      */
-    public static function getSampleYamlFile()
+    public static function getSampleYamlFile(): string
     {
         return self::fixtureDir() . '/fixture_sample.yml';
     }
@@ -69,7 +69,7 @@ class Fixtures
      *
      * @return string Sample yaml string
      */
-    public static function getSampleYamlString()
+    public static function getSampleYamlString(): string
     {
         return trim(
             '---' . "\n" .
@@ -83,7 +83,7 @@ class Fixtures
      *
      * @return string Path to JSON config file
      */
-    public static function getJsonConfigFile()
+    public static function getJsonConfigFile(): string
     {
         return self::fixtureDir() . '/fixture_config.json';
     }
@@ -93,7 +93,7 @@ class Fixtures
      *
      * @return string JSON config
      */
-    public static function getJsonConfig()
+    public static function getJsonConfig(): string|false
     {
         return file_get_contents(self::fixtureDir() . '/fixture_config.json');
     }
@@ -103,7 +103,7 @@ class Fixtures
      *
      * @return string Path to a sample JSON file
      */
-    public static function getSampleJsonFile()
+    public static function getSampleJsonFile(): string
     {
         return self::fixtureDir() . '/fixture_sample.json';
     }
@@ -113,7 +113,7 @@ class Fixtures
      *
      * @return string Sample JSON string
      */
-    public static function getSampleJsonString()
+    public static function getSampleJsonString(): string
     {
         return trim(
             '{' . "\n" .
@@ -128,7 +128,7 @@ class Fixtures
      *
      * @return string Sample string
      */
-    public static function getSampleString()
+    public static function getSampleString(): string
     {
         return " some string with new \n\n lines and white spaces \n\n";
     }
@@ -138,7 +138,7 @@ class Fixtures
      *
      * @return string Path to PHP array config file
      */
-    public static function getPhpArrayConfigFile()
+    public static function getPhpArrayConfigFile(): string
     {
         return self::fixtureDir() . '/fixture_config.php';
     }
@@ -158,11 +158,11 @@ class Fixtures
      *
      * @return array Sample array
      */
-    public static function getSamplePhpArray()
+    public static function getSamplePhpArray(): array
     {
-        return array(
+        return [
             'greeting' => 'hello',
             'to' => 'you'
-        );
+        ];
     }
 }

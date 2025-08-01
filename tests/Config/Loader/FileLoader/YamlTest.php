@@ -26,26 +26,25 @@ class YamlTest extends TestCase
 {
     /**
      * Yaml loader mock builder
-     * @var MockBuilder
      */
-    protected $yamlLoader = null;
+    protected ?\PHPUnit\Framework\MockObject\MockObject $yamlLoader = null;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $fileLocatorMock = $this->getMockBuilder('Symfony\Component\Config\FileLocatorInterface')
+        $fileLocatorMock = $this->getMockBuilder(\Symfony\Component\Config\FileLocatorInterface::class)
                                 ->getMock();
 
         $this->yamlLoader = $this->getMockBuilder(
-            'Cascade\Config\Loader\FileLoader\Yaml'
+            \Cascade\Config\Loader\FileLoader\Yaml::class
         )
-            ->setConstructorArgs(array($fileLocatorMock))
-            ->onlyMethods(array('readFrom', 'isFile', 'validateExtension'))
+            ->setConstructorArgs([$fileLocatorMock])
+            ->onlyMethods(['readFrom', 'isFile', 'validateExtension'])
             ->getMock();
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->yamlLoader = null;
         parent::tearDown();
@@ -54,7 +53,7 @@ class YamlTest extends TestCase
     /**
      * Test loading a Yaml string
      */
-    public function testLoad()
+    public function testLoad(): void
     {
         $yaml = Fixtures::getSampleYamlString();
 
@@ -72,20 +71,20 @@ class YamlTest extends TestCase
      * Data provider for testSupportsWithInvalidResource
      * @return array array non-string values
      */
-    public static function notStringDataProvider()
+    public static function notStringDataProvider(): array
     {
-        return array(
-            array(array()),
-            array(true),
-            array(123),
-            array(123.456),
-            array(null),
-            array(new \stdClass()),
+        return [
+            [[]],
+            [true],
+            [123],
+            [123.456],
+            [null],
+            [new \stdClass()],
             // array(function () {
             // })
             // cannot test Closure type because of PhpUnit
             // @see https://github.com/sebastianbergmann/phpunit/issues/451
-        );
+        ];
     }
 
     /**
@@ -94,7 +93,7 @@ class YamlTest extends TestCase
      * @param mixed $invalidResource Invalid resource value
      * @dataProvider notStringDataProvider
      */
-    public function testSupportsWithInvalidResource($invalidResource)
+    public function testSupportsWithInvalidResource(bool|int|float|\stdClass|array|null $invalidResource): void
     {
         $this->assertFalse($this->yamlLoader->supports($invalidResource));
     }
@@ -102,7 +101,7 @@ class YamlTest extends TestCase
     /**
      * Test loading a Yaml string
      */
-    public function testSupportsWithYamlString()
+    public function testSupportsWithYamlString(): void
     {
         $this->yamlLoader->expects($this->once())
             ->method('isFile')
@@ -116,7 +115,7 @@ class YamlTest extends TestCase
     /**
      * Test loading a Yaml file
      */
-    public function testSupportsWithYamlFile()
+    public function testSupportsWithYamlFile(): void
     {
         $this->yamlLoader->expects($this->once())
             ->method('isFile')

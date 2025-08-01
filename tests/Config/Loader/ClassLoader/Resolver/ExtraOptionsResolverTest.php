@@ -28,24 +28,25 @@ class ExtraOptionsResolverTest extends TestCase
      * Reflection class for which you want to resolve extra options
      * @var \ReflectionClass
      */
-    protected $reflected = null;
+    protected $reflected;
 
     /**
      * ExtraOptions Resolver
      * @var ExtraOptionsResolver
      */
-    protected $resolver = null;
+    protected $resolver;
 
     protected $class;
+
     protected $params;
 
     /**
      * Set up function
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->class = 'Cascade\Tests\Fixtures\SampleClass';
-        $this->params = array('optionalA', 'optionalB');
+        $this->class = \Cascade\Tests\Fixtures\SampleClass::class;
+        $this->params = ['optionalA', 'optionalB'];
         $this->resolver = new ExtraOptionsResolver(
             new \ReflectionClass($this->class),
             $this->params
@@ -56,7 +57,7 @@ class ExtraOptionsResolverTest extends TestCase
     /**
      * Tear down function
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->resolver = null;
         $this->class = null;
@@ -66,10 +67,10 @@ class ExtraOptionsResolverTest extends TestCase
     /**
      * Test the hsah key generation
      */
-    public function testGenerateParamsHashKey()
+    public function testGenerateParamsHashKey(): void
     {
-        $a = array('optionA', 'optionB', 'optionC');
-        $b = array('optionA', 'optionB', 'optionC');
+        $a = ['optionA', 'optionB', 'optionC'];
+        $b = ['optionA', 'optionB', 'optionC'];
 
         $this->assertEquals(
             ExtraOptionsResolver::generateParamsHashKey($a),
@@ -80,7 +81,7 @@ class ExtraOptionsResolverTest extends TestCase
     /**
      * Test the resolver contructor
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $this->assertEquals($this->class, $this->resolver->getReflected()->getName());
         $this->assertEquals($this->params, $this->resolver->getParams());
@@ -89,15 +90,15 @@ class ExtraOptionsResolverTest extends TestCase
     /**
      * Test resolving with valid options
      */
-    public function testResolve()
+    public function testResolve(): void
     {
         $this->assertEquals(
-            array_combine($this->params, array('hello', 'there')),
-            $this->resolver->resolve(array('optionalB' => 'there', 'optionalA' => 'hello'))
+            array_combine($this->params, ['hello', 'there']),
+            $this->resolver->resolve(['optionalB' => 'there', 'optionalA' => 'hello'])
         );
 
         // Resolve an empty array (edge case)
-        $this->assertEquals(array(), $this->resolver->resolve(array()));
+        $this->assertEquals([], $this->resolver->resolve([]));
     }
 
     /**
@@ -108,32 +109,32 @@ class ExtraOptionsResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public static function optionsProvider()
+    public static function optionsProvider(): array
     {
-        return array(
-            array(
-                array('optionalA', 'optionalB', 'mandatory'),
-                $this->getMockBuilder('Cascade\Config\Loader\ClassLoader')
+        return [
+            [
+                ['optionalA', 'optionalB', 'mandatory'],
+                $this->getMockBuilder(\Cascade\Config\Loader\ClassLoader::class)
                     ->disableOriginalConstructor()
                     ->getMock()->method('canHandle')
                     ->willReturn(true)
-            )
-        );
+            ]
+        ];
     }
 
     /**
      * Test resolving with valid options
      */
-    public function testResolveWithCustomOptionHandler()
+    public function testResolveWithCustomOptionHandler(): void
     {
-        $this->params = array('optionalA', 'optionalB', 'mandatory');
+        $this->params = ['optionalA', 'optionalB', 'mandatory'];
         $this->resolver = new ExtraOptionsResolver(
             new \ReflectionClass($this->class),
             $this->params
         );
 
         // Create a stub for the SomeClass class.
-        $stub = $this->getMockBuilder('Cascade\Config\Loader\ClassLoader')
+        $stub = $this->getMockBuilder(\Cascade\Config\Loader\ClassLoader::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -141,7 +142,7 @@ class ExtraOptionsResolverTest extends TestCase
             ->willReturn(true);
 
         // Resolve an empty array (edge case)
-        $this->assertEquals(array('mandatory' => 'abc'), $this->resolver->resolve(array('mandatory' => 'abc'), $stub));
+        $this->assertEquals(['mandatory' => 'abc'], $this->resolver->resolve(['mandatory' => 'abc'], $stub));
     }
 
     /**
@@ -152,21 +153,21 @@ class ExtraOptionsResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public static function invalidOptionsProvider()
+    public static function invalidOptionsProvider(): array
     {
-        return array(
-            array(
-                array( // Some invalid
+        return [
+            [
+                [ // Some invalid
                     'optionalB' => 'there',
                     'optionalA' => 'hello',
                     'additionalInvalid' => 'some unknow param'
-                ),
-                array( // All invalid
+                ],
+                [ // All invalid
                     'someInvalidOptionA' => 'abc',
                     'someInvalidOptionB' => 'def'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -175,7 +176,7 @@ class ExtraOptionsResolverTest extends TestCase
      * @param  array $invalidOptions Array of invalid options
      * @dataProvider invalidOptionsProvider
      */
-    public function testResolveWithInvalidOptions($invalidOptions)
+    public function testResolveWithInvalidOptions(array $invalidOptions): void
     {
         $this->expectException(UndefinedOptionsException::class);
 

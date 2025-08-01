@@ -46,25 +46,23 @@ class ClassLoader
      *     )
      * @var array
      */
-    public static $extraOptionHandlers = array();
+    public static $extraOptionHandlers = [];
 
     /**
      * Name of the class you want to load
      * @var String
      */
-    public $class = null;
+    public $class;
 
     /**
      * Reflected object of the class passed in
-     * @var \ReflectionClass
      */
-    protected $reflected = null;
+    protected \ReflectionClass $reflected;
 
     /**
      * Array of options. This is a raw copy of the options passed in.
-     * @var array
      */
-    protected $rawOptions = array();
+    protected array $rawOptions;
 
     /**
      * Constructor
@@ -123,14 +121,12 @@ class ClassLoader
      *
      * @return mixed[] Array of options indexed by (camelCased) name
      */
-    public static function optionsToCamelCase(array $options)
+    public static function optionsToCamelCase(array $options): array
     {
-        $optionsByName = array();
+        $optionsByName = [];
 
-        if (count($options)) {
-            foreach ($options as $name => $value) {
-                $optionsByName[Util::snakeToCamelCase($name)] = $value;
-            }
+        foreach ($options as $name => $value) {
+            $optionsByName[Util::snakeToCamelCase($name)] = $value;
         }
 
         return $optionsByName;
@@ -145,7 +141,7 @@ class ClassLoader
      *
      * @return array Array of constructorOptions and extraOptions
      */
-    private function resolveOptions()
+    private function resolveOptions(): array
     {
         $constructorResolver = new ConstructorResolver($this->reflected);
 
@@ -166,10 +162,10 @@ class ClassLoader
             array_keys($extraOptions)
         );
 
-        return array(
+        return [
             $constructorResolver->resolve($constructorOptions),
             $extraOptionsResolver->resolve($extraOptions, $this)
-        );
+        ];
     }
 
     /**
@@ -182,7 +178,7 @@ class ClassLoader
     {
         $this->loadChildClasses();
 
-        list($constructorResolvedOptions, $extraResolvedOptions) = $this->resolveOptions();
+        [$constructorResolvedOptions, $extraResolvedOptions] = $this->resolveOptions();
         $instance = $this->reflected->newInstanceArgs($constructorResolvedOptions);
 
         $this->loadExtraOptions($extraResolvedOptions, $instance);
@@ -197,7 +193,7 @@ class ClassLoader
      *
      * @return boolean Whether or not an option is supported by the loader
      */
-    public function canHandle($extraOptionName)
+    public function canHandle($extraOptionName): bool
     {
         return
             isset(self::$extraOptionHandlers['*'][$extraOptionName]) ||
@@ -218,12 +214,7 @@ class ClassLoader
             return self::$extraOptionHandlers['*'][$extraOptionName];
         }
 
-        // Check extraOption handlers that are valid for the given class
-        if (isset(self::$extraOptionHandlers[$this->class][$extraOptionName])) {
-            return self::$extraOptionHandlers[$this->class][$extraOptionName];
-        }
-
-        return null;
+        return self::$extraOptionHandlers[$this->class][$extraOptionName] ?? null;
     }
 
     /**
@@ -232,17 +223,18 @@ class ClassLoader
      * @param  array $extraOptions Array of extra options (key => value)
      * @param  mixed $instance Instance you want to set options for
      */
-    public function loadExtraOptions($extraOptions, $instance)
+    public function loadExtraOptions($extraOptions, $instance): void
     {
         foreach ($extraOptions as $name => $value) {
             if ($this->reflected->hasMethod($name)) {
                 // There is a method to handle this option
                 call_user_func_array(
-                    array($instance, $name),
-                    is_array($value) ? $value : array($value)
+                    [$instance, $name],
+                    is_array($value) ? $value : [$value]
                 );
                 continue;
             }
+
             if (
                 $this->reflected->hasProperty($name) &&
                 $this->reflected->getProperty($name)->isPublic()

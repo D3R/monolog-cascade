@@ -20,28 +20,10 @@ namespace Cascade\Tests\Fixtures;
 class SampleClass
 {
     /**
-     * Some mandatory member
-     * @var mixed
-     */
-    private $mandatory;
-
-    /**
-     * Optional member A
-     * @var mixed
-     */
-    private $optionalA;
-
-    /**
      * Optional member A
      * @var mixed
      */
     public $optionalB;
-
-    /**
-     * Optional member X
-     * @var mixed
-     */
-    private $optionalX;
 
     /**
      * Optional member Y
@@ -50,30 +32,12 @@ class SampleClass
     public $optionalY;
 
     /**
-     * Hello member
-     * @var mixed
-     */
-    private $hello;
-
-    /**
-     * There member
-     * @var mixed
-     */
-    private $there;
-
-    /**
      * Constructor
      *
      * @param mixed $mandatory Some mandatory param
-     * @param string $optionalA Some optional param
-     * @param string $optionalB Some other optional param
-     * @param string $optional_snake Some optional snake param
      */
     public function __construct(
-        $mandatory,
-        $optionalA = 'AAA',
-        $optionalB = 'BBB',
-        $optional_snake = 'snake'
+        $mandatory
     ) {
         $this->setMandatory($mandatory);
     }
@@ -85,7 +49,6 @@ class SampleClass
      */
     public function setMandatory($mandatory)
     {
-        $this->mandatory = $mandatory;
     }
 
     /**
@@ -95,7 +58,6 @@ class SampleClass
      */
     public function optionalA($value)
     {
-        $this->optionalA = $value;
     }
 
     /**
@@ -105,7 +67,6 @@ class SampleClass
      */
     public function optionalX($value)
     {
-        $this->optionalX = $value;
     }
 
     /**
@@ -115,7 +76,6 @@ class SampleClass
      */
     public function setHello($value)
     {
-        $this->hello = $value;
     }
 
     /**
@@ -125,6 +85,5 @@ class SampleClass
      */
     public function setThere($value)
     {
-        $this->there = $value;
     }
 }

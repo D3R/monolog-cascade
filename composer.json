@@ -29,8 +29,8 @@
             "Cascade\\": "src/"
         }
     },
-    "replace": { 
-        "theorchard/monolog-cascade": "self.version" 
+    "replace": {
+        "theorchard/monolog-cascade": "self.version"
     },
     "autoload-dev": {
         "psr-4": {
@@ -39,6 +39,7 @@
     },
     "require-dev": {
         "mikey179/vfsstream": "^1.6",
-        "phpunit/phpunit": "^10.0"
+        "phpunit/phpunit": "^10.0",
+        "rector/rector": "^2.1"
     }
 }

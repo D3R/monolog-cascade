@@ -24,13 +24,13 @@ use PHPUnit\Framework\TestCase;
  */
 class CascadeTest extends TestCase
 {
-    public function teardown(): void
+    protected function teardown(): void
     {
         Registry::clear();
         parent::teardown();
     }
 
-    public function testCreateLogger()
+    public function testCreateLogger(): void
     {
         $logger = Cascade::createLogger('test');
 
@@ -39,7 +39,7 @@ class CascadeTest extends TestCase
         $this->assertTrue(Registry::hasLogger('test'));
     }
 
-    public function testRegistry()
+    public function testRegistry(): void
     {
         // Creates the logger and push it to the registry
         $logger = Cascade::logger('test');
@@ -49,42 +49,42 @@ class CascadeTest extends TestCase
         $this->assertSame($logger, $logger2);
     }
 
-    public function testRegistryWithInvalidName()
+    public function testRegistryWithInvalidName(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
         Cascade::getLogger(null);
     }
 
-    public function testFileConfig()
+    public function testFileConfig(): void
     {
         $filePath = Fixtures::getPhpArrayConfigFile();
         Cascade::fileConfig($filePath);
-        $this->assertInstanceOf('Cascade\Config', Cascade::getConfig());
+        $this->assertInstanceOf(\Cascade\Config::class, Cascade::getConfig());
     }
 
-    public function testLoadConfigFromArray()
+    public function testLoadConfigFromArray(): void
     {
         $options = Fixtures::getPhpArrayConfig();
         Cascade::loadConfigFromArray($options);
-        $this->assertInstanceOf('Cascade\Config', Cascade::getConfig());
+        $this->assertInstanceOf(\Cascade\Config::class, Cascade::getConfig());
     }
 
-    public function testLoadConfigFromStringWithJson()
+    public function testLoadConfigFromStringWithJson(): void
     {
         $jsonConfig = Fixtures::getJsonConfig();
         Cascade::loadConfigFromString($jsonConfig);
-        $this->assertInstanceOf('Cascade\Config', Cascade::getConfig());
+        $this->assertInstanceOf(\Cascade\Config::class, Cascade::getConfig());
     }
 
-    public function testLoadConfigFromStringWithYaml()
+    public function testLoadConfigFromStringWithYaml(): void
     {
         $yamlConfig = Fixtures::getYamlConfig();
         Cascade::loadConfigFromString($yamlConfig);
-        $this->assertInstanceOf('Cascade\Config', Cascade::getConfig());
+        $this->assertInstanceOf(\Cascade\Config::class, Cascade::getConfig());
     }
 
-    public function testHasLogger()
+    public function testHasLogger(): void
     {
         // implicitly create logger "existing"
         Cascade::logger('existing');

@@ -28,27 +28,26 @@ class FileLoaderAbstractTest extends TestCase
 {
     /**
      * Mock of extending Cascade\Config\Loader\FileLoader\FileLoaderAbstract
-     * @var MockObject
      */
-    protected $mock = null;
+    protected ?\PHPUnit\Framework\MockObject\MockObject $mock = null;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $fileLocatorMock = $this->getMockBuilder('Symfony\Component\Config\FileLocatorInterface')
+        $fileLocatorMock = $this->getMockBuilder(\Symfony\Component\Config\FileLocatorInterface::class)
                                 ->getMock();
 
         $this->mock = $this->getMockForAbstractClass(
-            'Cascade\Config\Loader\FileLoader\FileLoaderAbstract',
-            array($fileLocatorMock)
+            \Cascade\Config\Loader\FileLoader\FileLoaderAbstract::class,
+            [$fileLocatorMock]
         );
 
         // Setting valid extensions for tests
-        $this->mock::$validExtensions = array('test', 'php');
+        $this->mock::$validExtensions = ['test', 'php'];
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->mock = null;
         parent::tearDown();
@@ -57,7 +56,7 @@ class FileLoaderAbstractTest extends TestCase
     /**
      * Test loading config from a valid file
      */
-    public function testReadFrom()
+    public function testReadFrom(): void
     {
         $this->assertEquals(
             Fixtures::getSampleYamlString(),
@@ -68,7 +67,7 @@ class FileLoaderAbstractTest extends TestCase
     /**
      * Test loading config from a valid file
      */
-    public function testLoadFileFromString()
+    public function testLoadFileFromString(): void
     {
         $this->assertEquals(
             trim(Fixtures::getSampleString()),
@@ -81,15 +80,15 @@ class FileLoaderAbstractTest extends TestCase
      *
      * @return array array with original value, section and expected value
      */
-    public static function extensionsDataProvider()
+    public static function extensionsDataProvider(): array
     {
-        return array(
-            array(true, 'hello/world.test'),
-            array(true, 'hello/world.php'),
-            array(false, 'hello/world.jpeg'),
-            array(false, 'hello/world'),
-            array(false, '')
-        );
+        return [
+            [true, 'hello/world.test'],
+            [true, 'hello/world.php'],
+            [false, 'hello/world.jpeg'],
+            [false, 'hello/world'],
+            [false, '']
+        ];
     }
 
     /**
@@ -99,7 +98,7 @@ class FileLoaderAbstractTest extends TestCase
      * @param string $filepath Filepath to validate
      * @dataProvider extensionsDataProvider
      */
-    public function testValidateExtension($expected, $filepath)
+    public function testValidateExtension(bool $expected, string $filepath): void
     {
         if ($expected) {
             $this->assertTrue($this->mock->validateExtension($filepath));
@@ -113,28 +112,28 @@ class FileLoaderAbstractTest extends TestCase
      *
      * @return array array wit original value, section and expected value
      */
-    public static function arrayDataProvider()
+    public static function arrayDataProvider(): array
     {
-        return array(
-            array(
-                array(
-                    'a' => array('aa' => 'AA', 'ab' => 'AB'),
-                    'b' => array('ba' => 'BA', 'bb' => 'BB')
-                ),
+        return [
+            [
+                [
+                    'a' => ['aa' => 'AA', 'ab' => 'AB'],
+                    'b' => ['ba' => 'BA', 'bb' => 'BB']
+                ],
                 'b',
-                array('ba' => 'BA', 'bb' => 'BB')
-            ),
-            array(
-                array('a' => 'A', 'b' => 'B'),
+                ['ba' => 'BA', 'bb' => 'BB']
+            ],
+            [
+                ['a' => 'A', 'b' => 'B'],
                 'c',
-                array('a' => 'A', 'b' => 'B'),
-            ),
-            array(
-                array('a' => 'A', 'b' => 'B'),
+                ['a' => 'A', 'b' => 'B'],
+            ],
+            [
+                ['a' => 'A', 'b' => 'B'],
                 '',
-                array('a' => 'A', 'b' => 'B'),
-            )
-        );
+                ['a' => 'A', 'b' => 'B'],
+            ]
+        ];
     }
 
     /**
@@ -145,7 +144,7 @@ class FileLoaderAbstractTest extends TestCase
      * @param array $expected Expected array for the given section
      * @dataProvider arrayDataProvider
      */
-    public function testGetSectionOf(array $array, $section, array $expected)
+    public function testGetSectionOf(array $array, string $section, array $expected): void
     {
         $this->assertSame($expected, $this->mock->getSectionOf($array, $section));
     }
@@ -153,7 +152,7 @@ class FileLoaderAbstractTest extends TestCase
     /**
      * Test loading an invalid file
      */
-    public function testloadFileFromInvalidFile()
+    public function testloadFileFromInvalidFile(): void
     {
         $this->expectException(\RuntimeException::class);
 

@@ -30,22 +30,22 @@ class ConstructorResolverTest extends TestCase
      * Reflection class for which you want to resolve extra options
      * @var \ReflectionClass
      */
-    protected $reflected = null;
+    protected $reflected;
 
     /**
      * Constructor Resolver
      * @var ConstructorResolver
      */
-    protected $resolver = null;
+    protected $resolver;
 
     protected $class;
 
     /**
      * Set up function
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $this->class = 'Cascade\Tests\Fixtures\SampleClass';
+        $this->class = \Cascade\Tests\Fixtures\SampleClass::class;
         $this->resolver = new ConstructorResolver(new \ReflectionClass($this->class));
         parent::setUp();
     }
@@ -53,7 +53,7 @@ class ConstructorResolverTest extends TestCase
     /**
      * Tear down function
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->resolver = null;
         $this->class = null;
@@ -73,7 +73,7 @@ class ConstructorResolverTest extends TestCase
     /**
      * Test the resolver contructor
      */
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $this->assertEquals($this->class, $this->resolver->getReflected()->getName());
     }
@@ -84,30 +84,31 @@ class ConstructorResolverTest extends TestCase
      * Note that we need to deuplicate the CamelCase conversion here for old
      * fashioned classes
      */
-    public function testInitConstructorArgs()
+    public function testInitConstructorArgs(): void
     {
-        $expectedConstructorArgs = array();
+        $expectedConstructorArgs = [];
 
         foreach ($this->getConstructorArgs() as $param) {
             $expectedConstructorArgs[Util::snakeToCamelCase($param->getName())] = $param;
         }
+
         $this->assertEquals($expectedConstructorArgs, $this->resolver->getConstructorArgs());
     }
 
     /**
      * Test the hashToArgsArray function
      */
-    public function testHashToArgsArray()
+    public function testHashToArgsArray(): void
     {
         $this->assertEquals(
-            array('someValue', 'hello', 'there', 'slither'),
+            ['someValue', 'hello', 'there', 'slither'],
             $this->resolver->hashToArgsArray(
-                array( // Not properly ordered on purpose
+                [ // Not properly ordered on purpose
                     'optionalB'     => 'there',
                     'optionalA'     => 'hello',
                     'optionalSnake' => 'slither',
                     'mandatory'     => 'someValue',
-                )
+                ]
             )
         );
     }
@@ -120,30 +121,30 @@ class ConstructorResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public static function optionsProvider()
+    public static function optionsProvider(): array
     {
-        return array(
-            array(
-                array('someValue', 'hello', 'there', 'slither'), // Expected resolved options
-                array( // Options (order should not matter, part of resolution)
+        return [
+            [
+                ['someValue', 'hello', 'there', 'slither'], // Expected resolved options
+                [ // Options (order should not matter, part of resolution)
                     'optionalB'      => 'there',
                     'optionalA'      => 'hello',
                     'mandatory'      => 'someValue',
                     'optionalSnake'  => 'slither',
-                )
-            ),
-            array(
-                array('someValue', 'hello', 'BBB', 'snake'),
-                array(
+                ]
+            ],
+            [
+                ['someValue', 'hello', 'BBB', 'snake'],
+                [
                     'mandatory' => 'someValue',
                     'optionalA' => 'hello',
-                )
-            ),
-            array(
-                array('someValue', 'AAA', 'BBB', 'snake'),
-                array('mandatory' => 'someValue')
-            )
-        );
+                ]
+            ],
+            [
+                ['someValue', 'AAA', 'BBB', 'snake'],
+                ['mandatory' => 'someValue']
+            ]
+        ];
     }
 
     /**
@@ -154,7 +155,7 @@ class ConstructorResolverTest extends TestCase
      * @param  array $options Array of raw options
      * @dataProvider optionsProvider
      */
-    public function testResolve(array $expectedResolvedOptions, array $options)
+    public function testResolve(array $expectedResolvedOptions, array $options): void
     {
         $this->assertEquals($expectedResolvedOptions, $this->resolver->resolve($options));
     }
@@ -167,21 +168,21 @@ class ConstructorResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public static function missingOptionsProvider()
+    public static function missingOptionsProvider(): array
     {
-        return array(
-            array(
-                array( // No values
-                ),
-                array( // Missing a mandatory value
+        return [
+            [
+                [ // No values
+                ],
+                [ // Missing a mandatory value
                     'optionalB' => 'BBB'
-                ),
-                array( // Still missing a mandatory value
+                ],
+                [ // Still missing a mandatory value
                     'optionalB' => 'there',
                     'optionalA' => 'hello'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -190,7 +191,7 @@ class ConstructorResolverTest extends TestCase
      * @param  array $incompleteOptions Array of invalid options
      * @dataProvider missingOptionsProvider
      */
-    public function testResolveWithMissingOptions(array $incompleteOptions)
+    public function testResolveWithMissingOptions(array $incompleteOptions): void
     {
         $this->expectException(MissingOptionsException::class);
 
@@ -205,23 +206,23 @@ class ConstructorResolverTest extends TestCase
      *
      * @return array of arrays with expected resolved values and options used as input
      */
-    public static function invalidOptionsProvider()
+    public static function invalidOptionsProvider(): array
     {
-        return array(
-            array(
-                array('ABC'),
-                array( // All invalid
+        return [
+            [
+                ['ABC'],
+                [ // All invalid
                     'someInvalidOptionA' => 'abc',
                     'someInvalidOptionB' => 'def'
-                ),
-                array( // Some invalid
+                ],
+                [ // Some invalid
                     'optionalB' => 'there',
                     'optionalA' => 'hello',
                     'mandatory' => 'dsadsa',
                     'additionalInvalid' => 'some unknow param'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -230,7 +231,7 @@ class ConstructorResolverTest extends TestCase
      * @param  array $invalidOptions Array of invalid options
      * @dataProvider invalidOptionsProvider
      */
-    public function testResolveWithInvalidOptions($invalidOptions)
+    public function testResolveWithInvalidOptions(array $invalidOptions): void
     {
         $this->expectException(UndefinedOptionsException::class);
 

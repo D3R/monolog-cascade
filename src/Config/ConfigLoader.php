@@ -30,9 +30,8 @@ class ConfigLoader extends DelegatingLoader
 {
     /**
      * Locator
-     * @var FileLocator
      */
-    protected $locator = null;
+    protected \Symfony\Component\Config\FileLocator $locator;
 
     /**
      * Instantiate a Loader object
@@ -42,14 +41,14 @@ class ConfigLoader extends DelegatingLoader
     {
         $this->locator = new FileLocator();
 
-        $loaderResolver = new LoaderResolver(array(
+        $loaderResolver = new LoaderResolver([
             // Do not change that order, it does matter as the resolver returns the first loader
             // that meets the requirements of the "supports" method for each of those loaders
             new ArrayLoader(),
             new ArrayFromFileLoader($this->locator),
             new JsonLoader($this->locator),
             new YamlLoader($this->locator)
-        ));
+        ]);
 
         parent::__construct($loaderResolver);
     }
