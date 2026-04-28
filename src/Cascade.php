@@ -83,7 +83,7 @@ class Cascade
      *
      * @return Logger Requested instance of Logger or new instance
      */
-    public static function logger($name)
+    public static function logger($name): \Monolog\Logger
     {
         return self::getLogger($name);
     }

@@ -20,4 +20,7 @@ return RectorConfig::configure()
         codeQuality: true,
         codingStyle: true,
     )
+    ->withSkip([
+        __DIR__ . '/tests/Fixtures/SampleClass.php',
+    ])
     ;

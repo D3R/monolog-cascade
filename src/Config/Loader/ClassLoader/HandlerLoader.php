@@ -30,7 +30,7 @@ class HandlerLoader extends ClassLoader
     /**
      * Default handler class to use if none is provided in the option array
      */
-    public const DEFAULT_CLASS = 'Monolog\Handler\StreamHandler';
+    public const DEFAULT_CLASS = \Monolog\Handler\StreamHandler::class;
 
     /**
      * Constructor
@@ -190,7 +190,7 @@ class HandlerLoader extends ClassLoader
                 }
             ],
             \Monolog\Handler\LogglyHandler::class => [
-                'tags' => function (LogglyHandler $instance, $tags): void {
+                'tags' => function (LogglyHandler $instance, string|array $tags): void {
                     $instance->setTag($tags);
                 }
             ]

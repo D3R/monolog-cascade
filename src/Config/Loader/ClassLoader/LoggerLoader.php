@@ -25,9 +25,8 @@ class LoggerLoader
 {
     /**
      * Logger
-     * @var Monolog\Logger
      */
-    protected $logger;
+    protected \Monolog\Logger $logger;
 
     /**
      * Constructor
@@ -102,7 +101,7 @@ class LoggerLoader
      *
      * @return callable[] Array of Monolog processors
      */
-    public function resolveProcessors(array $loggerOptions, $processors): array
+    public function resolveProcessors(array $loggerOptions, array $processors): array
     {
         $processorArray = [];
 
@@ -160,7 +159,7 @@ class LoggerLoader
      *
      * @return Monolog\Logger Logger object
      */
-    public function load()
+    public function load(): \Monolog\Logger
     {
         $this->addHandlers($this->resolveHandlers($this->loggerOptions, $this->handlers));
         $this->addProcessors($this->resolveProcessors($this->loggerOptions, $this->processors));

@@ -248,11 +248,11 @@ class HandlerLoaderTest extends TestCase
     {
         $options = [];
 
-        $mockProcessor1 = function (array $record) {
+        $mockProcessor1 = function (array $record): array {
             $record['extra']['dummy'] = 'Hello world 1!';
             return $record;
         };
-        $mockProcessor2 = function (array $record) {
+        $mockProcessor2 = function (array $record): array {
             $record['extra']['dummy'] = 'Hello world 1!';
             return $record;
         };

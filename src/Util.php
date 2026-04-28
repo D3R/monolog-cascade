@@ -25,6 +25,6 @@ class Util
 
         $output = preg_replace_callback('/(^|_)+(.)/', fn($match): string => strtoupper($match[2]), $input);
 
-        return lcfirst($output);
+        return lcfirst((string) $output);
     }
 }

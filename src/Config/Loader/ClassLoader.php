@@ -209,12 +209,7 @@ class ClassLoader
      */
     public function getExtraOptionsHandler($extraOptionName)
     {
-        // Check extraOption handlers that are valid for all classes
-        if (isset(self::$extraOptionHandlers['*'][$extraOptionName])) {
-            return self::$extraOptionHandlers['*'][$extraOptionName];
-        }
-
-        return self::$extraOptionHandlers[$this->class][$extraOptionName] ?? null;
+        return self::$extraOptionHandlers['*'][$extraOptionName] ?? self::$extraOptionHandlers[$this->class][$extraOptionName] ?? null;
     }
 
     /**
