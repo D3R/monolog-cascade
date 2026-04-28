@@ -15,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@6.0.2
+    - uses: actions/checkout@v6.0.2
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
-      uses: actions/cache@5.0.5
+      uses: actions/cache@v5.0.5
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -37,7 +37,7 @@ jobs:
 
     - name: PHPUnit (php-actions)
       # You may pin to the exact commit or the version.
-      uses: php-actions/phpunit@4.0.0
+      uses: php-actions/phpunit@v4.0.0
       # uses: php-actions/phpunit@v4
       with:
         # What version of PHP to use
@@ -45,7 +45,7 @@ jobs:
 
     - name: PHP Code Sniffer (php-actions)
       # You may pin to the exact commit or the version.
-      uses: php-actions/phpcs@1.0.1
+      uses: php-actions/phpcs@v1.0.1
       # uses: php-actions/phpcs@v1
       with:
         # What version of PHP to use
