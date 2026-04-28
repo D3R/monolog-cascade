@@ -69,8 +69,7 @@ class Config
          */
         protected $input,
         protected \Cascade\Config\ConfigLoader $loader
-    )
-    {
+    ) {
     }
 
     /**
