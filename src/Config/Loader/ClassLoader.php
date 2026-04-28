@@ -209,7 +209,9 @@ class ClassLoader
      */
     public function getExtraOptionsHandler($extraOptionName)
     {
-        return self::$extraOptionHandlers['*'][$extraOptionName] ?? self::$extraOptionHandlers[$this->class][$extraOptionName] ?? null;
+        return self::$extraOptionHandlers['*'][$extraOptionName]
+            ?? self::$extraOptionHandlers[$this->class][$extraOptionName]
+            ?? null;
     }
 
     /**
