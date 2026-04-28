@@ -15,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+    - uses: actions/checkout@v4
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
-      uses: actions/cache@2f8e54208210a422b2efd51efaa6bd6d7ca8920f
+      uses: actions/cache@v4
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -34,22 +34,22 @@ jobs:
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
-    
+
     - name: PHPUnit (php-actions)
       # You may pin to the exact commit or the version.
-      uses: php-actions/phpunit@1789d1964b1bfda259b1cb42a72b65299c2cae35
+      uses: php-actions/phpunit@v2
       # uses: php-actions/phpunit@v4
       with:
         # What version of PHP to use
-        php_version: "8.3"
-        
+        php_version: "8.5"
+
     - name: PHP Code Sniffer (php-actions)
       # You may pin to the exact commit or the version.
-      uses: php-actions/phpcs@0a99a2845164005c597c165cd45dc594d8fe6c1d
+      uses: php-actions/phpcs@v1
       # uses: php-actions/phpcs@v1
       with:
         # What version of PHP to use
-        php_version: "8.3"
+        php_version: "8.5"
         # Path to a vendored phpcs binary
         # vendored_phpcs_path: # optional
         # One or more files and/or directories to check
