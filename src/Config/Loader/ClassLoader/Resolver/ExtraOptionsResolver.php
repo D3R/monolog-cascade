@@ -94,7 +94,7 @@ class ExtraOptionsResolver
      * @param  ClassLoader|null $classLoader Optional class loader if you want to use custom
      * handlers for some of the extra options
      */
-    protected function configureOptions(OptionsResolver $resolver, ClassLoader $classLoader = null)
+    protected function configureOptions(OptionsResolver $resolver, ?ClassLoader $classLoader = null)
     {
         foreach ($this->params as $name) {
             if ($this->reflected->hasMethod($name)) {
@@ -130,7 +130,7 @@ class ExtraOptionsResolver
      *
      * @return array Array of resolved options
      */
-    public function resolve(array $options, ClassLoader $classLoader = null): array
+    public function resolve(array $options, ?ClassLoader $classLoader = null): array
     {
         $hashKey = self::generateParamsHashKey($this->params);
 
