@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Monolog Cascade package.
  *
@@ -9,7 +11,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Cascade\Tests\Fixtures;
 
 /**
@@ -20,12 +21,6 @@ namespace Cascade\Tests\Fixtures;
  */
 class DependentClass
 {
-    /**
-     * An object dependency
-     * @var SampleClass
-     */
-    private $dependency;
-
     /**
      * Constructor
      *
@@ -43,6 +38,5 @@ class DependentClass
      */
     public function setDependency(SampleClass $dependency)
     {
-        $this->dependency = $dependency;
     }
 }

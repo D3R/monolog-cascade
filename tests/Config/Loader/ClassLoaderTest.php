@@ -28,7 +28,7 @@ class ClassLoaderTest extends TestCase
     /**
      * Set up function
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }
@@ -36,9 +36,9 @@ class ClassLoaderTest extends TestCase
     /**
      * Tear down function
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
-        ClassLoader::$extraOptionHandlers = array();
+        ClassLoader::$extraOptionHandlers = [];
         parent::tearDown();
     }
 
@@ -46,23 +46,23 @@ class ClassLoaderTest extends TestCase
      * Provides options with and without a class param
      * @return array of args
      */
-    public static function dataFortestSetClass()
+    public static function dataFortestSetClass(): array
     {
-        return array(
-            array(
-                array(
-                    'class' => 'Cascade\Tests\Fixtures\SampleClass',
+        return [
+            [
+                [
+                    'class' => \Cascade\Tests\Fixtures\SampleClass::class,
                     'some_param' => 'abc'
-                ),
-                'Cascade\Tests\Fixtures\SampleClass'
-            ),
-            array(
-                array(
+                ],
+                \Cascade\Tests\Fixtures\SampleClass::class
+            ],
+            [
+                [
                     'some_param' => 'abc'
-                ),
+                ],
                 '\stdClass'
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -72,39 +72,39 @@ class ClassLoaderTest extends TestCase
      * @param  string $expectedClass Expected classname of the instantiated object
      * @dataProvider dataFortestSetClass
      */
-    public function testSetClass($options, $expectedClass)
+    public function testSetClass(array $options, string $expectedClass): void
     {
         $loader = new ClassLoader($options);
 
         $this->assertEquals($expectedClass, $loader->class);
     }
 
-    public function testOptionsToCamelCase()
+    public function testOptionsToCamelCase(): void
     {
-        $array = array('hello_there' => 'Hello', 'bye_bye' => 'Bye');
+        $array = ['hello_there' => 'Hello', 'bye_bye' => 'Bye'];
 
         $this->assertEquals(
-            array('helloThere' => 'Hello', 'byeBye' => 'Bye'),
+            ['helloThere' => 'Hello', 'byeBye' => 'Bye'],
             ClassLoader::optionsToCamelCase($array)
         );
     }
 
-    public function testGetExtraOptionsHandler()
+    public function testGetExtraOptionsHandler(): void
     {
-        ClassLoader::$extraOptionHandlers = array(
-            '*' => array(
-                'hello' => function ($instance, $value) {
+        ClassLoader::$extraOptionHandlers = [
+            '*' => [
+                'hello' => function ($instance, $value): void {
                     $instance->setHello(strtoupper($value));
                 }
-            ),
-            'Cascade\Tests\Fixtures\SampleClass' => array(
-                'there' => function ($instance, $value) {
+            ],
+            \Cascade\Tests\Fixtures\SampleClass::class => [
+                'there' => function ($instance, $value): void {
                     $instance->setThere(strtoupper($value) . '!!!');
                 }
-            )
-        );
+            ]
+        ];
 
-        $loader = new ClassLoader(array());
+        $loader = new ClassLoader([]);
         $existingHandler = $loader->getExtraOptionsHandler('hello');
         $this->assertNotNull($existingHandler);
         $this->assertTrue(is_callable($existingHandler));
@@ -112,29 +112,29 @@ class ClassLoaderTest extends TestCase
         $this->assertNull($loader->getExtraOptionsHandler('nohandler'));
     }
 
-    public function testLoad()
+    public function testLoad(): void
     {
-        $options = array(
-            'class' => 'Cascade\Tests\Fixtures\SampleClass',
+        $options = [
+            'class' => \Cascade\Tests\Fixtures\SampleClass::class,
             'mandatory' => 'someValue',
             'optional_X' => 'testing some stuff',
             'optional_Y' => 'testing other stuff',
             'hello' => 'hello',
             'there' => 'there',
-        );
+        ];
 
-        ClassLoader::$extraOptionHandlers = array(
-            '*' => array(
-                'hello' => function ($instance, $value) {
+        ClassLoader::$extraOptionHandlers = [
+            '*' => [
+                'hello' => function ($instance, $value): void {
                     $instance->setHello(strtoupper($value));
                 }
-            ),
-            'Cascade\Tests\Fixtures\SampleClass' => array(
-                'there' => function ($instance, $value) {
+            ],
+            \Cascade\Tests\Fixtures\SampleClass::class => [
+                'there' => function ($instance, $value): void {
                     $instance->setThere(strtoupper($value) . '!!!');
                 }
-            )
-        );
+            ]
+        ];
 
         $loader = new ClassLoader($options);
         $instance = $loader->load();
@@ -151,15 +151,15 @@ class ClassLoaderTest extends TestCase
     /**
      * Test a nested class to load
      */
-    public function testLoadDependency()
+    public function testLoadDependency(): void
     {
-        $options = array(
-            'class' => 'Cascade\Tests\Fixtures\DependentClass',
-            'dependency' => array(
-                'class' => 'Cascade\Tests\Fixtures\SampleClass',
+        $options = [
+            'class' => \Cascade\Tests\Fixtures\DependentClass::class,
+            'dependency' => [
+                'class' => \Cascade\Tests\Fixtures\SampleClass::class,
                 'mandatory' => 'someValue',
-            )
-        );
+            ]
+        ];
 
         $loader = new ClassLoader($options);
         $instance = $loader->load();

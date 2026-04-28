@@ -10,10 +10,11 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Cascade\Config\Loader\ClassLoader;
 
 use Cascade\Config\Loader\ClassLoader;
-use Monolog;
 
 /**
  * Processor Loader. Loads the Processor options, validate them and instantiates
@@ -29,12 +30,11 @@ class ProcessorLoader extends ClassLoader
     /**
      * Constructor
      * @see ClassLoader::__construct
-     * @see Monolog\Handler classes for handler options
+     * @see \Monolog\Handler classes for handler options
      *
      * @param array $processorOptions Processor options
-     * @param Monolog\Processor\ProcessorInterface[] $processors Array of processors to pick from
      */
-    public function __construct(array &$processorOptions, array $processors = array())
+    public function __construct(array &$processorOptions)
     {
         parent::__construct($processorOptions);
 

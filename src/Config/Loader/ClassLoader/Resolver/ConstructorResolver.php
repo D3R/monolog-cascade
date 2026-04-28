@@ -24,22 +24,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ConstructorResolver
 {
     /**
-     * Reflection class for which you want to resolve constructor options
-     * @var \ReflectionClass
-     */
-    protected $reflected = null;
-
-    /**
      * Registry of resolvers
-     * @var array
      */
-    private static $resolvers = array();
+    private static array $resolvers = [];
 
     /**
      * Associative array of contructor args to resolve against
      * @var \ReflectionParameter[]
      */
-    protected $constructorArgs = array();
+    protected $constructorArgs = [];
 
     /**
      * Contructor
@@ -47,9 +40,8 @@ class ConstructorResolver
      * @param \ReflectionClass $reflected Reflection class for which you want to resolve
      * constructor options
      */
-    public function __construct(\ReflectionClass $reflected)
+    public function __construct(protected \ReflectionClass $reflected)
     {
-        $this->reflected = $reflected;
         $this->initConstructorArgs();
     }
 
@@ -60,7 +52,7 @@ class ConstructorResolver
      * Convert the parameter names to camelCase for classes that have contructor
      * params defined in snake_case for consistency with the options
      */
-    public function initConstructorArgs()
+    public function initConstructorArgs(): void
     {
         $constructor = $this->reflected->getConstructor();
 
@@ -85,10 +77,8 @@ class ConstructorResolver
 
     /**
      * Returns the reflected object
-     *
-     * @return \ReflectionClass
      */
-    public function getReflected()
+    public function getReflected(): \ReflectionClass
     {
         return $this->reflected;
     }
@@ -118,7 +108,7 @@ class ConstructorResolver
      *
      * @return array Array of ordered args
      */
-    public function hashToArgsArray($hashOfOptions)
+    public function hashToArgsArray(array $hashOfOptions): array
     {
         $optionsArray = new \SplFixedArray(count($hashOfOptions));
 
@@ -140,7 +130,7 @@ class ConstructorResolver
      *
      * @return array Array of resolved ordered args
      */
-    public function resolve(array $options)
+    public function resolve(array $options): array
     {
         $reflectedClassName = $this->reflected->getName();
 

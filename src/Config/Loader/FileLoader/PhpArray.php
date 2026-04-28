@@ -21,7 +21,7 @@ class PhpArray extends FileLoaderAbstract
      *
      * @var array
      */
-    public static $validExtensions = array('php');
+    public static $validExtensions = ['php'];
 
     /**
      * Load a PHP file

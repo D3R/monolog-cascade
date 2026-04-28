@@ -28,46 +28,34 @@ use Cascade\Config\Loader\ClassLoader\ProcessorLoader;
 class Config
 {
     /**
-     * Input from user. This is either a file path, a string or an array
-     * @var string|array
-     */
-    protected $input = null;
-
-    /**
      * Array of logger configuration options: (logger attributes, formatters, handlers, etc.)
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Array of Formatter objects
      * @var Monolog\Formatter\FormatterInterface[]
      */
-    protected $formatters = array();
+    protected $formatters = [];
 
     /**
      * Array of Handler objects
      * @var Monolog\Handler\HandlerInterface[]
      */
-    protected $handlers = array();
+    protected $handlers = [];
 
     /**
      * Array of Processor objects
      * @var callable[]
      */
-    protected $processors = array();
+    protected $processors = [];
 
     /**
      * Array of logger objects
      * @var Monolog\Logger[]
      */
-    protected $loggers = array();
-
-    /**
-     * Config loader
-     * @var ConfigLoader
-     */
-    protected $loader = null;
+    protected $loggers = [];
 
     /**
      * Instantiate a Config object
@@ -75,16 +63,19 @@ class Config
      * @param string|array $input User input
      * @param ConfigLoader $loader Config loader object
      */
-    public function __construct($input, ConfigLoader $loader)
-    {
-        $this->input = $input;
-        $this->loader = $loader;
+    public function __construct(
+        /**
+         * Input from user. This is either a file path, a string or an array
+         */
+        protected $input,
+        protected \Cascade\Config\ConfigLoader $loader
+    ) {
     }
 
     /**
      * Load config options into the options array using the injected loader
      */
-    public function load()
+    public function load(): void
     {
         $this->options = $this->loader->load($this->input);
     }
@@ -92,7 +83,7 @@ class Config
     /**
      * Configure and register Logger(s) according to the options passed in
      */
-    public function configure()
+    public function configure(): void
     {
         if (!isset($this->options['disable_existing_loggers'])) {
             // We disable any existing loggers by default
@@ -129,7 +120,7 @@ class Config
      *
      * @param  array $formatters Array of formatter options
      */
-    protected function configureFormatters(array $formatters = array())
+    protected function configureFormatters(array $formatters = [])
     {
         foreach ($formatters as $formatterId => $formatterOptions) {
             $formatterLoader = new FormatterLoader($formatterOptions);

@@ -31,7 +31,7 @@ class Cascade
      * This is optional, you can set up your loggers programmatically
      * @var Config
      */
-    protected static $config = null;
+    protected static $config;
 
     /**
      * Create a new Logger object and push it to the registry
@@ -48,9 +48,9 @@ class Cascade
      */
     public static function createLogger(
         $name,
-        array $handlers = array(),
-        array $processors = array()
-    ) {
+        array $handlers = [],
+        array $processors = []
+    ): \Monolog\Logger {
 
         if (empty($name)) {
             throw new \InvalidArgumentException('Logger name is required.');
@@ -70,7 +70,7 @@ class Cascade
      *
      * @return Logger Requested instance of Logger or new instance
      */
-    public static function getLogger($name)
+    public static function getLogger($name): \Monolog\Logger
     {
         return Registry::hasLogger($name) ? Registry::getInstance($name) : self::createLogger($name);
     }
@@ -83,7 +83,7 @@ class Cascade
      *
      * @return Logger Requested instance of Logger or new instance
      */
-    public static function logger($name)
+    public static function logger($name): \Monolog\Logger
     {
         return self::getLogger($name);
     }
@@ -95,7 +95,7 @@ class Cascade
      *
      * @return bool true - Logger already exists; false - Logger does not exist
      */
-    public static function hasLogger($name)
+    public static function hasLogger($name): bool
     {
         return Registry::hasLogger($name);
     }
@@ -115,7 +115,7 @@ class Cascade
      *
      * @param string|array $resource Path to config file or configuration as string or array
      */
-    public static function fileConfig($resource)
+    public static function fileConfig($resource): void
     {
         self::$config = new Config($resource, new ConfigLoader());
         self::$config->load();
@@ -128,7 +128,7 @@ class Cascade
      *
      * @param string $configString Configuration in string form
      */
-    public static function loadConfigFromString($configString)
+    public static function loadConfigFromString($configString): void
     {
         self::fileConfig($configString);
     }
@@ -139,7 +139,7 @@ class Cascade
      *
      * @param array $configArray Configuration in array form
      */
-    public static function loadConfigFromArray($configArray)
+    public static function loadConfigFromArray($configArray): void
     {
         self::fileConfig($configArray);
     }

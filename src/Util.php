@@ -17,16 +17,14 @@ class Util
      * @param string $input Input snake_case string
      * @return null|string Output camelCase string
      */
-    public static function snakeToCamelCase($input)
+    public static function snakeToCamelCase($input): ?string
     {
         if (!is_string($input)) {
             return null;
         }
 
-        $output = preg_replace_callback('/(^|_)+(.)/', function ($match) {
-            return strtoupper($match[2]);
-        }, $input);
+        $output = preg_replace_callback('/(^|_)+(.)/', fn($match): string => strtoupper($match[2]), $input);
 
-        return lcfirst($output);
+        return lcfirst((string) $output);
     }
 }

@@ -10,6 +10,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Cascade\Config\Loader\ClassLoader;
 
 use Monolog;
@@ -28,7 +30,7 @@ class FormatterLoader extends ClassLoader
     /**
      * Default formatter class to use if none is provided in the option array
      */
-    public const DEFAULT_CLASS = 'Monolog\Formatter\LineFormatter';
+    public const DEFAULT_CLASS = \Monolog\Formatter\LineFormatter::class;
 
     /**
      * Constructor
@@ -60,14 +62,14 @@ class FormatterLoader extends ClassLoader
      *
      * @todo add handlers to handle extra options for all known Monolog formatters
      */
-    public static function initExtraOptionsHandlers()
+    public static function initExtraOptionsHandlers(): void
     {
-        self::$extraOptionHandlers = array(
-            'Monolog\Formatter\LineFormatter' => array(
-                'includeStacktraces' => function (Monolog\Formatter\LineFormatter $instance, $include) {
+        self::$extraOptionHandlers = [
+            \Monolog\Formatter\LineFormatter::class => [
+                'includeStacktraces' => function (Monolog\Formatter\LineFormatter $instance, bool $include): void {
                     $instance->includeStacktraces($include);
                 }
-            )
-        );
+            ]
+        ];
     }
 }

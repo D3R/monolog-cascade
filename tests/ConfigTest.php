@@ -27,11 +27,11 @@ class ConfigTest extends TestCase
     /**
      * Testing contructor and load functions
      */
-    public function testLoad()
+    public function testLoad(): void
     {
-        $mock = $this->getMockBuilder('Cascade\Config\ConfigLoader')
+        $mock = $this->getMockBuilder(\Cascade\Config\ConfigLoader::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(array('load'))
+            ->onlyMethods(['load'])
             ->getMock();
 
         $array = Fixtures::getSamplePhpArray();
@@ -40,31 +40,31 @@ class ConfigTest extends TestCase
             ->method('load')
             ->willReturn($array);
 
-        $config = new Config(array(''), $mock);
+        $config = new Config([''], $mock);
         $config->load();
     }
 
-    public function testConfigure()
+    public function testConfigure(): void
     {
         $options = Fixtures::getPhpArrayConfig();
 
         // Mocking the ConfigLoader with the load method
-        $configLoader = $this->getMockBuilder('Cascade\Config\ConfigLoader')
+        $configLoader = $this->getMockBuilder(\Cascade\Config\ConfigLoader::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(array('load'))
+            ->onlyMethods(['load'])
             ->getMock();
 
         $configLoader->method('load')->willReturn($options);
 
         // Mocking the config object and set expectations for the configure methods
-        $config = $this->getMockBuilder('Cascade\Config')
-            ->setConstructorArgs(array($options, $configLoader))
-            ->onlyMethods(array(
+        $config = $this->getMockBuilder(\Cascade\Config::class)
+            ->setConstructorArgs([$options, $configLoader])
+            ->onlyMethods([
                     'configureFormatters',
                     'configureProcessors',
                     'configureHandlers',
                     'configureLoggers'
-                ))
+                ])
             ->getMock();
 
         $config->expects($this->once())->method('configureFormatters');
@@ -79,16 +79,16 @@ class ConfigTest extends TestCase
     /**
      * Test configure throwing an exception due to missing 'loggers' key
      */
-    public function testConfigureWithNoLoggers()
+    public function testConfigureWithNoLoggers(): void
     {
         $this->expectException(\RuntimeException::class);
 
-        $options = array();
+        $options = [];
 
         // Mocking the ConfigLoader with the load method
-        $configLoader = $this->getMockBuilder('Cascade\Config\ConfigLoader')
+        $configLoader = $this->getMockBuilder(\Cascade\Config\ConfigLoader::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(array('load'))
+            ->onlyMethods(['load'])
             ->getMock();
 
         $configLoader->method('load')->willReturn($options);
@@ -102,14 +102,14 @@ class ConfigTest extends TestCase
         $config->configure();
     }
 
-    public function testLoggersConfigured()
+    public function testLoggersConfigured(): void
     {
         $options = Fixtures::getPhpArrayConfig();
 
         // Mocking the ConfigLoader with the load method
-        $configLoader = $this->getMockBuilder('Cascade\Config\ConfigLoader')
+        $configLoader = $this->getMockBuilder(\Cascade\Config\ConfigLoader::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(array('load'))
+            ->onlyMethods(['load'])
             ->getMock();
 
         $configLoader->method('load')->willReturn($options);

@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
  */
 class ProcessorLoaderTest extends TestCase
 {
-    public function testProcessorLoader()
+    public function testProcessorLoader(): void
     {
-        $options = array(
-            'class' => 'Monolog\Processor\WebProcessor'
-        );
-        $processors = array(new WebProcessor());
+        $options = [
+            'class' => \Monolog\Processor\WebProcessor::class
+        ];
+        $processors = [new WebProcessor()];
         $loader = new ProcessorLoader($options, $processors);
 
         $this->assertEquals($loader->class, $options['class']);

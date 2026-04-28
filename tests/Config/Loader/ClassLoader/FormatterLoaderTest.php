@@ -25,18 +25,18 @@ class FormatterLoaderTest extends TestCase
     /**
      * Set up function
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
-        new FormatterLoader(array());
+        new FormatterLoader([]);
     }
 
     /**
      * Tear down function
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
-        FormatterLoader::$extraOptionHandlers = array();
+        FormatterLoader::$extraOptionHandlers = [];
         parent::tearDown();
     }
 
@@ -49,7 +49,7 @@ class FormatterLoaderTest extends TestCase
      * @return \Closure Closure
      * @throws \Exception
      */
-    private function getHandler($class, $optionName)
+    private function getHandler(string $class, string $optionName)
     {
         if (isset(FormatterLoader::$extraOptionHandlers[$class][$optionName])) {
             // Get the closure
@@ -78,11 +78,11 @@ class FormatterLoaderTest extends TestCase
      * @param  mixed $methodArg Parameter passed to the closure
      * @param  \Closure $closure Closure to call
      */
-    private function doTestMethodCalledInHandler($class, $methodName, $methodArg, \Closure $closure)
+    private function doTestMethodCalledInHandler(string $class, string $methodName, bool $methodArg, \Closure $closure): void
     {
         // Setup mock and expectations
         $mock = $this->getMockBuilder($class)
-            ->onlyMethods(array($methodName))
+            ->onlyMethods([$methodName])
             ->getMock();
 
         $mock->expects($this->once())
@@ -97,7 +97,7 @@ class FormatterLoaderTest extends TestCase
     /**
      * Test that handlers exist
      */
-    public function testHandlersExist()
+    public function testHandlersExist(): void
     {
         $this->assertTrue(count(FormatterLoader::$extraOptionHandlers) > 0);
     }
@@ -109,16 +109,16 @@ class FormatterLoaderTest extends TestCase
      *
      * @return array of array of args for testHandlers
      */
-    public static function handlerParamsProvider()
+    public static function handlerParamsProvider(): array
     {
-        return array(
-            array(
-                'Monolog\Formatter\LineFormatter',   // Class name
+        return [
+            [
+                \Monolog\Formatter\LineFormatter::class,   // Class name
                 'includeStacktraces',                // Option name
                 true,                                // Option test value
                 'includeStacktraces'                 // Name of the method called by your handler
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -131,7 +131,7 @@ class FormatterLoaderTest extends TestCase
      * @param  string $calledMethodName Expected called method name
      * @dataProvider handlerParamsProvider
      */
-    public function testHandlers($class, $optionName, $optionValue, $calledMethodName)
+    public function testHandlers(string $class, string $optionName, bool $optionValue, string $calledMethodName): void
     {
         // Test if handler exists and return it
         $closure = $this->getHandler($class, $optionName);

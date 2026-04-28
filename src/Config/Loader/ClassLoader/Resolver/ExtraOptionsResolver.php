@@ -24,22 +24,16 @@ use Cascade\Config\Loader\ClassLoader;
 class ExtraOptionsResolver
 {
     /**
-     * Reflection class for which you want to resolve extra options
-     * @var \ReflectionClass
-     */
-    protected $reflected = null;
-
-    /**
      * Registry of resolvers
      * @var OptionsResolver[]
      */
-    private static $resolvers = array();
+    private static array $resolvers = [];
 
     /**
      * Associative array of parameters to resolve against
      * @var array
      */
-    protected $params = array();
+    protected $params = [];
 
     /**
      * Constructor
@@ -48,9 +42,8 @@ class ExtraOptionsResolver
      * extra options
      * @param array $params Associative array of extra parameters we want to resolve against
      */
-    public function __construct(\ReflectionClass $reflected, array $params = array())
+    public function __construct(protected \ReflectionClass $reflected, array $params = [])
     {
-        $this->reflected = $reflected;
         $this->setParams($params);
     }
 
@@ -59,7 +52,7 @@ class ExtraOptionsResolver
      *
      * @param array $params Associative array of extra parameters we want to resolve against
      */
-    public function setParams(array $params = array())
+    public function setParams(array $params = []): void
     {
         $this->params = $params;
     }
@@ -76,10 +69,8 @@ class ExtraOptionsResolver
 
     /**
      * Returns the reflected object
-     *
-     * @return \ReflectionClass
      */
-    public function getReflected()
+    public function getReflected(): \ReflectionClass
     {
         return $this->reflected;
     }
@@ -91,7 +82,7 @@ class ExtraOptionsResolver
      *
      * @return string Unique MD5 hash
      */
-    public static function generateParamsHashKey($params)
+    public static function generateParamsHashKey($params): string
     {
         return md5(serialize($params));
     }
@@ -103,7 +94,7 @@ class ExtraOptionsResolver
      * @param  ClassLoader|null $classLoader Optional class loader if you want to use custom
      * handlers for some of the extra options
      */
-    protected function configureOptions(OptionsResolver $resolver, ClassLoader $classLoader = null)
+    protected function configureOptions(OptionsResolver $resolver, ?ClassLoader $classLoader = null)
     {
         foreach ($this->params as $name) {
             if ($this->reflected->hasMethod($name)) {
@@ -111,6 +102,7 @@ class ExtraOptionsResolver
                 $resolver->setDefined($name);
                 continue;
             }
+
             if (
                 $this->reflected->hasProperty($name) &&
                 $this->reflected->getProperty($name)->isPublic()
@@ -138,7 +130,7 @@ class ExtraOptionsResolver
      *
      * @return array Array of resolved options
      */
-    public function resolve($options, ClassLoader $classLoader = null)
+    public function resolve(array $options, ?ClassLoader $classLoader = null): array
     {
         $hashKey = self::generateParamsHashKey($this->params);
 
